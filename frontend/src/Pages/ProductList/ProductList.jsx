@@ -1,3 +1,4 @@
+import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 
 export default function ProductList() {
@@ -31,7 +32,8 @@ export default function ProductList() {
 
     return (
         <>
-            <div className="grid grid-cols-2 p-2 justify-items-center">
+            <FilterBar />
+            <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-6 p-2 justify-items-center">
                 {arr.map((value, index) => {
                     return (
                         <div className="p-2" key={`p${index}`}>

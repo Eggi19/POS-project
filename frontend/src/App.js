@@ -4,12 +4,14 @@ import './App.css';
 import ProductList from './Pages/ProductList/ProductList';
 
 
+
+
 function App() {
   return (
     <>
       {/* <SignIn /> */}
       <Routes>
-        <Route path='/' element={
+        <Route path='/productlist' element={
           <ProductList />
         } />
       </Routes>
