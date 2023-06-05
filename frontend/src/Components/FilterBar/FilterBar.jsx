@@ -25,7 +25,7 @@ export default function FilterBar() {
         <>
             <div className='flex px-3 py-1  bg-gray-200'>
 
-                <div className='text-sm'>
+                <div className='text-xs'>
                     <Button
                         id="category-button"
                         aria-controls={openCat ? 'category-menu' : undefined}
@@ -36,6 +36,7 @@ export default function FilterBar() {
                         CATEGORY
                     </Button>
                     <Menu
+                        className='text-xs'
                         id="category-menu"
                         anchorEl={anchorElCat}
                         open={openCat}

@@ -28,9 +28,10 @@ export default function ProductList() {
     }, [page])
 
     return (
-        <>
+
+        <div className=" relative h-full justify-items-center ">
             <FilterBar />
-            <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-6 p-2 justify-items-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                 {products?.data?.data?.map((value, index) => {
                     return (
                         <div className="p-2" key={`p${index}`}>
@@ -39,7 +40,12 @@ export default function ProductList() {
                     )
                 })}
             </div>
-            <PaginationControlled  handlePagination={setPagination} />
-        </>
+            <div className="relative">
+                <div className=" absolute justify-center bottom-3">
+                    <PaginationControlled handlePagination={setPagination} />
+                </div>
+            </div>
+        </div>
+
     )
 }
