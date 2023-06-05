@@ -12,10 +12,9 @@ app.get('/', (req, res) => {
 })
 
 // import Routes
-const { userRouter, authRouter, postRouter } = require('./routers')
-app.use('/user', userRouter)
-app.use('/auth', authRouter)
-app.use('/post', postRouter)
+const { productRouter } = require('./routers')
+app.use('/products', productRouter)
+
 
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)

@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 // import SignIn from './Pages/Login/login';
 import ProductList from './Pages/ProductList/ProductList';
-
+import PaginationControlled from './Components/Pagination/Pagination';
 
 
 
@@ -11,11 +11,13 @@ function App() {
     <>
       {/* <SignIn /> */}
       <Routes>
-        <Route path='/productlist' element={
-          <ProductList />
+        <Route path='/products' element={
+          <>
+            <ProductList />
+            <PaginationControlled />
+          </>
         } />
       </Routes>
-
     </>
   );
 }

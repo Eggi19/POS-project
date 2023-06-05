@@ -1,50 +1,31 @@
+import { useEffect, useState } from "react"
 import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 
 
 export default function ProductList() {
-    const products = async ()=>{
+    const [products, setProducts] = useState()
+    const data = async () => {
         try {
-            await getAllProducts()
-            
+            const response = await getAllProducts()
+            setProducts(response)
+            console.log(response)
+
         } catch (error) {
-            
+
         }
     }
-    const arr = [
-        {
-            name: "nasi 1",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 11000
-        },
-        {
-            name: "nasi 2",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 12000
-        },
-        {
-            name: "nasi 3",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 13000
-        },
-        {
-            name: "nasi 4",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 14000
-        },
-        {
-            name: "nasi 5",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 15000
-        }
-    ]
 
+
+    useEffect(() => {
+        data()
+    }, [])
     return (
         <>
             <FilterBar />
             <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-6 p-2 justify-items-center">
-                {arr.map((value, index) => {
+                {products?.data?.data?.map((value, index) => {
                     return (
                         <div className="p-2" key={`p${index}`}>
                             <ProductCard data={value} />

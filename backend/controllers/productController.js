@@ -1,11 +1,11 @@
 const db = require("./../models")
 const ProductsDB = db.product
 
-
 module.exports = {
     getProduct: async (req, res) => {
         try {
-            const result = await ProductsDB.findAll
+            const result = await ProductsDB.findAll()
+            console.log(result)
             if (result.length > 0) {
                 return res.status(200).send({
                     success: true,
