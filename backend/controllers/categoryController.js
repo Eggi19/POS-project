@@ -4,7 +4,13 @@ const Category = db.Category
 module.exports = {
     getCategories: async(req, res) => {
         try {
+            const result = await Category.findAll()
             
+            return res.status(200).send({
+                success: true,
+                message: 'get category success',
+                data: result
+            })
         } catch (error) {
             
         }
