@@ -27,7 +27,7 @@ export default function FilterBar() {
         <>
             <div className='flex px-3 py-1  bg-gray-200'>
 
-                <div className='text-xs'>
+                <div className='place-items-center align-center'>
                     <Button
                         id="category-button"
                         aria-controls={openCat ? 'category-menu' : undefined}
