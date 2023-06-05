@@ -74,6 +74,9 @@ export default function FilterBar() {
                         <MenuItem onClick={handleCloseSort}>{"NAME Z TO A"}</MenuItem>
                     </Menu>
                 </div>
+                <div>
+                    <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                </div>
 
             </div >
         </>
