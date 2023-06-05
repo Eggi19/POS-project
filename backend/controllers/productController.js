@@ -12,7 +12,7 @@ module.exports = {
                     message: 'get products success',
                     data: result
                 })
-            }else{
+            } else {
                 res.status(404).send({
                     success: true,
                     message: 'products not found',
@@ -22,10 +22,10 @@ module.exports = {
 
         } catch (error) {
             res.send({
-                
+                success: false,
+                message: error.message,
+                data: []
             })
-
         }
     }
-
 }

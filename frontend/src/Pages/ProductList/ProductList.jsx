@@ -1,7 +1,17 @@
+import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 
+
 export default function ProductList() {
+    const products = async ()=>{
+        try {
+            await getAllProducts()
+            
+        } catch (error) {
+            
+        }
+    }
     const arr = [
         {
             name: "nasi 1",
