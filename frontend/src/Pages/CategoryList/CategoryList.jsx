@@ -36,7 +36,7 @@ export default function BasicTable() {
 
   const handleClose = async (add, name) => {
     if(add){
-      let response = await addCategory(name)
+      await addCategory(name)
     }
     setOpen(false);
     addCategoryStatus()
