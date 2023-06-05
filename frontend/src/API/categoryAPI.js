@@ -9,3 +9,9 @@ export function modifyCategory(data) {
       name: data.name
    })
 }
+
+export function addCategory(data) {
+   return axios.post(`${process.env.REACT_APP_API_URL}/category/`, {
+      name: data
+   })
+}
