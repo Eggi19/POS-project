@@ -3,16 +3,23 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-export default function PaginationControlled() {
-  const [page, setPage] = React.useState(1);
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
+export default function PaginationControlled(props) {
+    // const [page, setPage] = React.useState(1);
+    // const handleChange = (event, value) => {
+    //     console.log(value)
+    //     setPage(value);
+    //     props.page(value)
+    // };
 
-  return (
-    <Stack spacing={1}>
-      <Typography>Page: {page}</Typography>
-      <Pagination count={3} page={page} variant='outlined' color='primary' onChange={handleChange} />
-    </Stack>
-  );
+    return (
+        <>
+            <div className='flex justify-center'>
+                <div>
+                    <Stack spacing={1}>
+                        <Pagination count={3}  variant='outlined' color='primary' onChange={props.handlePagination}  />
+                    </Stack>
+                </div>
+            </div>
+        </>
+    );
 }

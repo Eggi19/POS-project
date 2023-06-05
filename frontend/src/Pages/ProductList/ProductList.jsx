@@ -2,25 +2,31 @@ import { useEffect, useState } from "react"
 import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
-
+import PaginationControlled from "../../Components/Pagination/Pagination"
 
 export default function ProductList() {
     const [products, setProducts] = useState()
+    const [page, setPage] = useState(1)
+
     const data = async () => {
         try {
-            const response = await getAllProducts()
+            console.log('page', page)
+            const response = await getAllProducts(page)
             setProducts(response)
             console.log(response)
-
         } catch (error) {
 
         }
     }
-
+    const setPagination = (event, value) => {
+        setPage(value)
+        console.log('page1', value)
+    }
 
     useEffect(() => {
         data()
-    }, [])
+    }, [page])
+
     return (
         <>
             <FilterBar />
@@ -33,6 +39,7 @@ export default function ProductList() {
                     )
                 })}
             </div>
+            <PaginationControlled  handlePagination={setPagination} />
         </>
     )
 }

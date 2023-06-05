@@ -4,7 +4,9 @@ const ProductsDB = db.product
 module.exports = {
     getProduct: async (req, res) => {
         try {
-            const result = await ProductsDB.findAll()
+            const { page } = req.query
+            const offset = (page - 1) * 5
+            const result = await ProductsDB.findAll({ limit: 5, offset: offset })
             console.log(result)
             if (result.length > 0) {
                 return res.status(200).send({
