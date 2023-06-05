@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 // import SignIn from './Pages/Login/login';
 import ProductList from './Pages/ProductList/ProductList';
+import CategoryPage from './Pages/CategoryList/CategoryList';
 
 
 
@@ -13,6 +14,9 @@ function App() {
       <Routes>
         <Route path='/productlist' element={
           <ProductList />
+        } />
+        <Route path='/categories' element={
+          <CategoryPage />
         } />
       </Routes>
 
