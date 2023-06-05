@@ -40,10 +40,8 @@ export default function ProductList() {
                     )
                 })}
             </div>
-            <div className="relative">
-                <div className=" absolute justify-center bottom-3">
-                    <PaginationControlled handlePagination={setPagination} />
-                </div>
+            <div className="pt-5">
+                <PaginationControlled handlePagination={setPagination} />
             </div>
         </div>
 
