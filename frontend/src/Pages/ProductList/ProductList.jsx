@@ -4,11 +4,7 @@ import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 import PaginationControlled from "../../Components/Pagination/Pagination"
 
-
-
-
 export default function ProductList() {
-
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1)
     const [category, setCategoryValue] = useState(0)
