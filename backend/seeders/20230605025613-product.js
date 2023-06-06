@@ -178,7 +178,7 @@ module.exports = {
       {
         name: 'Le Minerale',
         categoryId: 2,
-        imageURL: ' https://images.tokopedia.net/img/cache/700/hDjmkQ/2020/9/5/cb598e26-de97-445a-b3f0-4d513f8ce6b8.pnghttps://images.tokopedia.net/img/cache/700/hDjmkQ/2020/9/5/cb598e26-de97-445a-b3f0-4d513f8ce6b8.png',
+        imageURL: 'https://images.tokopedia.net/img/cache/700/product-1/2018/11/22/26743791/26743791_70106dc1-b6a2-40bb-be4e-0d2aafe33a9a_1000_1000.jpg',
         price: 5000,
         status: true,
         createdAt: new Date(),

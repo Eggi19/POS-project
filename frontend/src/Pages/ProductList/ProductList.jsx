@@ -34,13 +34,13 @@ export default function ProductList() {
             <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                 {products?.data?.data?.map((value, index) => {
                     return (
-                        <div className="p-2" key={`p${index}`}>
+                        <div className="p-3" key={`p${index}`}>
                             <ProductCard data={value} />
                         </div>
                     )
                 })}
             </div>
-            <div className="pt-5">
+            <div className="p-5">
                 <PaginationControlled handlePagination={setPagination} />
             </div>
         </div>

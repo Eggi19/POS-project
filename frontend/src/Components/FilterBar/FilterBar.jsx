@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 export default function FilterBar() {
@@ -17,7 +18,7 @@ export default function FilterBar() {
 
     const [anchorElSort, setAnchorElSort] = React.useState(null);
     const openSort = Boolean(anchorElSort);
-    const handleClick1 = (event) => {
+    const handleClickSort = (event) => {
         setAnchorElSort(event.currentTarget);
     };
     const handleCloseSort = () => {
@@ -25,59 +26,67 @@ export default function FilterBar() {
     };
     return (
         <>
-            <div className='flex px-3 py-1  bg-gray-200'>
+            <div className='md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
+                <div className='flex gap-5 py-3'>
 
-                <div className='place-items-center align-center'>
-                    <Button
-                        id="category-button"
-                        aria-controls={openCat ? 'category-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openCat ? 'true' : undefined}
-                        onClick={handleClickCat}
-                    >
-                        CATEGORY
-                    </Button>
-                    <Menu
-                        className='text-xs'
-                        id="category-menu"
-                        anchorEl={anchorElCat}
-                        open={openCat}
-                        onClose={handleCloseCat}
-                        MenuListProps={{
-                            'aria-labelledby': 'category-button',
-                        }}
-                    >
-                        <MenuItem onClick={handleCloseCat}>FOOD</MenuItem>
-                        <MenuItem onClick={handleCloseCat}>DRINK</MenuItem>
-                        <MenuItem onClick={handleCloseCat}>SIDE DISH</MenuItem>
-                    </Menu>
-                </div>
+                    <div>
+                        <Button
+                            id="category-button"
+                            aria-controls={openCat ? 'category-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openCat ? 'true' : undefined}
+                            onClick={handleClickCat}
+                            variant='contained'
+                            endIcon={<KeyboardArrowDownIcon />}
+                            className='h-12'
+                        >
+                            CATEGORY
+                        </Button>
+                        <Menu
+                            className='text-xs'
+                            id="category-menu"
+                            anchorEl={anchorElCat}
+                            open={openCat}
+                            onClose={handleCloseCat}
+                            MenuListProps={{
+                                'aria-labelledby': 'category-button',
+                            }}
+                        >
+                            <MenuItem onClick={handleCloseCat}>FOOD</MenuItem>
+                            <MenuItem onClick={handleCloseCat}>DRINK</MenuItem>
+                            <MenuItem onClick={handleCloseCat}>SIDE DISH</MenuItem>
+                        </Menu>
+                    </div>
 
-                <div>
-                    <Button
-                        id="sort-button"
-                        aria-controls={openSort ? 'sort-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openSort ? 'true' : undefined}
-                        onClick={handleClick1}
-                    >
-                        SORT BY
-                    </Button>
-                    <Menu
-                        id="sort-menu"
-                        anchorEl={anchorElSort}
-                        open={openSort}
-                        onClose={handleCloseSort}
-                        MenuListProps={{
-                            'aria-labelledby': 'sort-button',
-                        }}
-                    >
-                        <MenuItem onClick={handleCloseSort}>{"NAME A TO Z"} </MenuItem>
-                        <MenuItem onClick={handleCloseSort}>{"NAME Z TO A"}</MenuItem>
-                    </Menu>
+                    <div>
+                        <Button
+                            id="sort-button"
+                            aria-controls={openSort ? 'sort-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openSort ? 'true' : undefined}
+                            onClick={handleClickSort}
+                            variant='contained'
+                            endIcon={<KeyboardArrowDownIcon />}
+                            className='h-12'
+                        >
+                            SORT BY
+                        </Button>
+                        <Menu
+                            id="sort-menu"
+                            anchorEl={anchorElSort}
+                            open={openSort}
+                            onClose={handleCloseSort}
+                            MenuListProps={{
+                                'aria-labelledby': 'sort-button',
+                            }}
+                        >
+                            <MenuItem onClick={handleCloseSort}>{"NAME A TO Z"} </MenuItem>
+                            <MenuItem onClick={handleCloseSort}>{"NAME Z TO A"}</MenuItem>
+                        </Menu>
+                    </div>
                 </div>
                 <div>
-                    <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                    <TextField id="outlined-basic" label="Search" variant="outlined" className=' bg-white' />
                 </div>
 
             </div >
