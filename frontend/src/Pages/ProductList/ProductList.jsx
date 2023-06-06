@@ -1,50 +1,38 @@
+import { useEffect, useState } from "react"
 import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
-
+import PaginationControlled from "../../Components/Pagination/Pagination"
 
 export default function ProductList() {
-    const products = async ()=>{
+    const [products, setProducts] = useState()
+    const [page, setPage] = useState(1)
+
+    const data = async () => {
         try {
-            await getAllProducts()
-            
+            console.log('page', page)
+            const response = await getAllProducts(page)
+            setProducts(response)
+            console.log(response)
         } catch (error) {
-            
+
         }
     }
-    const arr = [
-        {
-            name: "nasi 1",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 11000
-        },
-        {
-            name: "nasi 2",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 12000
-        },
-        {
-            name: "nasi 3",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 13000
-        },
-        {
-            name: "nasi 4",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 14000
-        },
-        {
-            name: "nasi 5",
-            imageURL: "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230209083509073564/detail/menueditor_item_d66bd304cb75454496e9c050bf60552c_1675939095467014639.webp",
-            price: 15000
-        }
-    ]
+    const setPagination = (event, value) => {
+        setPage(value)
+        console.log('page1', value)
+    }
+
+    useEffect(() => {
+        data()
+    }, [page])
 
     return (
-        <>
+
+        <div className=" relative h-full justify-items-center ">
             <FilterBar />
-            <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-6 p-2 justify-items-center">
-                {arr.map((value, index) => {
+            <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
+                {products?.data?.data?.map((value, index) => {
                     return (
                         <div className="p-2" key={`p${index}`}>
                             <ProductCard data={value} />
@@ -52,6 +40,12 @@ export default function ProductList() {
                     )
                 })}
             </div>
-        </>
+
+            <div className="pt-5">
+                <PaginationControlled handlePagination={setPagination} />
+            </div>
+
+        </div>
+
     )
 }

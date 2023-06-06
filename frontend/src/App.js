@@ -4,22 +4,20 @@ import './App.css';
 import ProductList from './Pages/ProductList/ProductList';
 import CategoryPage from './Pages/CategoryList/CategoryList';
 
-
-
-
 function App() {
   return (
     <>
       {/* <SignIn /> */}
       <Routes>
-        <Route path='/productlist' element={
-          <ProductList />
+        <Route path='/products' element={
+          <>
+            <ProductList />
+          </>
         } />
         <Route path='/categories' element={
           <CategoryPage />
         } />
       </Routes>
-
     </>
   );
 }
