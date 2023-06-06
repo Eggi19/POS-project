@@ -22,8 +22,9 @@ export default function FilterBar(props) {
     const handleClickSort = (event) => {
         setAnchorElSort(event.currentTarget);
     };
-    const handleCloseSort = () => {
+    const handleCloseSort = (data) => {
         setAnchorElSort(null);
+        props.setSort(data)
     };
     return (
         <>
@@ -88,10 +89,10 @@ export default function FilterBar(props) {
                 </div>
                 <div>
                     <TextField
-                        id="outlined-basic" 
-                        label="Search" 
+                        id="outlined-basic"
+                        label="Search"
                         variant="outlined"
-                        className=' bg-white' 
+                        className=' bg-white'
                         onChange={(event) => {
                             props.setSearch(event.target.value);
                         }} />

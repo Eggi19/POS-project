@@ -9,11 +9,12 @@ export default function ProductList() {
     const [page, setPage] = useState(1)
     const [category, setCategoryValue] = useState(0)
     const [search, setSearchValue] = useState("")
+    const [sort, setSortValue] = useState("")
 
     const data = async () => {
         try {
             console.log('page', page)
-            const response = await getAllProducts(page, category, search)
+            const response = await getAllProducts(page, category, search, sort)
             setProducts(response)
             console.log(response)
         } catch (error) {
@@ -34,15 +35,18 @@ export default function ProductList() {
         setSearchValue(data)
         console.log(data)
     }
+    const setSort = (data) => {
+        setSortValue(data)
+    }
 
     useEffect(() => {
         data()
-    }, [page, category, search])
+    }, [page, category, search, sort])
 
     return (
         <>
             <div className=" relative h-full justify-items-center ">
-                <FilterBar setCategory={setCategory} setSearch={setSearch} />
+                <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
                 <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                     {products?.data?.data?.map((value, index) => {
                         return (
