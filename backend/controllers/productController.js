@@ -1,12 +1,33 @@
 const db = require("./../models")
 const ProductsDB = db.product
+const { Op } = require("sequelize");
 
 module.exports = {
     getProduct: async (req, res) => {
         try {
-            const { page } = req.query
+            const { page, category, search } = req.query
+
             const offset = (page - 1) * 5
-            const result = await ProductsDB.findAll({ limit: 10, offset: offset })
+            let result
+            console.log('masuk ', search)
+            let where = undefined
+
+            if (search) {
+                where = {}
+                where.name = { [Op.like]: `%${search}%` }
+            }
+            if (category !== '0') {
+                where = {}
+                console.log('masuk cat + search')
+                where.categoryId= category
+            }
+
+            result = await ProductsDB.findAll({
+                limit: 10, offset: offset,
+                where: where
+            })
+
+            console.log('masuk ')
             console.log(result)
             if (result.length > 0) {
                 return res.status(200).send({

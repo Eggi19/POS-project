@@ -6,9 +6,6 @@ import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function FilterBar(props) {
-    const [category, setCategory] = React.useState(null)
-    const [search, setSearch] = React.useState(null)
-    const [sort, setSort] = React.useState(null)
     const [anchorElCat, setAnchorElCat] = React.useState(null);
     const openCat = Boolean(anchorElCat);
     const handleClickCat = (event) => {
@@ -55,7 +52,7 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'category-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseCat(null)}>NONE</MenuItem>
+                            <MenuItem onClick={() => handleCloseCat(0)}>NONE</MenuItem>
                             <MenuItem onClick={() => handleCloseCat(1)}>FOOD</MenuItem>
                             <MenuItem onClick={() => handleCloseCat(2)}>DRINK</MenuItem>
                             <MenuItem onClick={() => handleCloseCat(3)}>SIDE DISH</MenuItem>
@@ -90,7 +87,14 @@ export default function FilterBar(props) {
                     </div>
                 </div>
                 <div>
-                    <TextField id="outlined-basic" label="Search" variant="outlined" className=' bg-white' />
+                    <TextField
+                        id="outlined-basic" 
+                        label="Search" 
+                        variant="outlined"
+                        className=' bg-white' 
+                        onChange={(event) => {
+                            props.setSearch(event.target.value);
+                        }} />
                 </div>
             </div >
         </>

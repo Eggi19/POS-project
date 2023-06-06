@@ -11,12 +11,13 @@ export default function ProductList() {
 
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1)
-    const [category,setCategoryValue] = useState()
+    const [category, setCategoryValue] = useState(0)
+    const [search, setSearchValue] = useState("")
 
     const data = async () => {
         try {
             console.log('page', page)
-            const response = await getAllProducts(page,category)
+            const response = await getAllProducts(page, category, search)
             setProducts(response)
             console.log(response)
         } catch (error) {
@@ -28,21 +29,24 @@ export default function ProductList() {
         console.log('page1', value)
     }
     const setCategory = (data) => {
-        console.log(data)
+        if (typeof (data) === "number") {
+            setCategoryValue(data)
+            console.log(typeof (data))
+        }
     }
     const setSearch = (data) => {
-
+        setSearchValue(data)
+        console.log(data)
     }
 
     useEffect(() => {
         data()
-    }, [page])
-    
+    }, [page, category, search])
+
     return (
         <>
-
             <div className=" relative h-full justify-items-center ">
-                <FilterBar setCategory={setCategory} />
+                <FilterBar setCategory={setCategory} setSearch={setSearch} />
                 <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                     {products?.data?.data?.map((value, index) => {
                         return (
@@ -56,7 +60,6 @@ export default function ProductList() {
                     <PaginationControlled handlePagination={setPagination} />
                 </div>
             </div>
-
         </>
     )
 }
