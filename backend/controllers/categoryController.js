@@ -4,6 +4,11 @@ const Category = db.Category
 module.exports = {
     getCategories: async(req, res) => {
         try {
+            console.log('name=>>>', req.body.name);
+            console.log('categoryId=>>>', req.body.categoryId);
+            console.log('imageURL=>>>', req.body.imageURL);
+            console.log('price=>>>', req.body.price);
+            console.log('status=>>>', req.body.status);
             const result = await Category.findAll()
             
             return res.status(200).send({

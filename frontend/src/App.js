@@ -3,6 +3,7 @@ import './App.css';
 // import SignIn from './Pages/Login/login';
 import ProductList from './Pages/ProductList/ProductList';
 import CategoryPage from './Pages/CategoryList/CategoryList';
+import CreateProduct from './Pages/CreateProduct/createProduct';
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
         } />
         <Route path='/categories' element={
           <CategoryPage />
+        } />
+        <Route path='/newProduct' element={
+          <CreateProduct />
         } />
       </Routes>
     </>
