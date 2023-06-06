@@ -29,5 +29,44 @@ module.exports = {
                 data: []
             })
         }
+    },
+
+    createProduct: async (req, res) => {
+        try {
+            const { name, categoryId, imageURL, price, status } = req.body
+            const getProducts = await ProductsDB.findOne({
+                where: {
+                    name: name
+                }
+            })
+
+            if (!getProducts) {
+                const result = await ProductsDB.create({
+                    name,
+                    categoryId,
+                    imageURL,
+                    price,
+                    status
+                })
+
+                return res.status(200).send({
+                    success: true,
+                    message: 'add product success',
+                    data: result
+                })
+            } else {
+                return res.status(400).send({
+                    success: false,
+                    message: `${name} had been added`,
+                    data: null
+                })
+            }
+        } catch (error) {
+            res.send({
+                success: false,
+                message: error.message,
+                data: null
+            })
+        }
     }
 }
