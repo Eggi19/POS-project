@@ -35,7 +35,7 @@ export default function BasicTable() {
   };
 
   const handleClose = async (add, name) => {
-    if(add){
+    if (add) {
       await addCategory(name)
     }
     setOpen(false);
@@ -100,7 +100,13 @@ export default function BasicTable() {
                   value.status ?
                     <>
                       <TableCell component="th" scope="row">
-                        <input type="text" defaultValue={value.name} ref={_name} />
+                        <TextField
+                          required
+                          id="outlined-required"
+                          label="Required"
+                          defaultValue={value.name}
+                          inputRef={_name}
+                        />
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" spacing={2}>
@@ -136,7 +142,7 @@ export default function BasicTable() {
           </Fab>
         </div>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Subscribe</DialogTitle>
+          <DialogTitle>Add New Category</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Add your new category
