@@ -12,9 +12,9 @@ app.get('/', (req, res) => {
 })
 
 // import Routes
-const { productRouter } = require('./routers')
+const { productRouter, categoryRouter } = require('./routers')
 app.use('/products', productRouter)
-
+app.use('/category', categoryRouter)
 
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)
