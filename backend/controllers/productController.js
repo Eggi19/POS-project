@@ -38,7 +38,7 @@ module.exports = {
             } else {
                 order = [['id', 'ASC']]
             }
-
+            console.log('aksed DB');
             result = await ProductsDB.findAll({
                 limit: 10, offset: offset,
                 where: where,
