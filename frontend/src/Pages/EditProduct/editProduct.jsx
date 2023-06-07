@@ -107,12 +107,8 @@ export default function EditProduct() {
                 </Table>
             </TableContainer>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>Edit Product</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
                     <EditComponent data={currentDataProduct}/>
                 </DialogContent>
                 <DialogActions>

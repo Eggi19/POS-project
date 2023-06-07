@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PropTypes from 'prop-types';
@@ -129,10 +129,10 @@ export default function EditComponent(props) {
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <AddCircleOutlineIcon />
+                        <EditIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Create New Product
+                        Edit Product
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -219,7 +219,7 @@ export default function EditComponent(props) {
                     sx={{ mt: 3, mb: 2 }}
                     onClick={onEditProduct}
                 >
-                    Create Product
+                    Save Changes
                 </Button>
                 <Copyright sx={{ mt: 5 }} />
             </Container>
