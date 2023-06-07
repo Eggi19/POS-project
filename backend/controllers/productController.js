@@ -5,13 +5,12 @@ const { Op } = require("sequelize");
 module.exports = {
     getProduct: async (req, res) => {
         try {
-            const { page, category, search, sort, nameSort } = req.query
+            const { page, category, search } = req.query
 
             const offset = (page - 1) * 5
             let result
-            console.log('masuksort ', sort)
+            console.log('masuk ', search)
             let where = undefined
-            let order = undefined
 
             if (search) {
                 where = {}
@@ -20,29 +19,12 @@ module.exports = {
             if (category !== '0') {
                 where = {}
                 console.log('masuk cat + search')
-                where.categoryId = category
+                where.categoryId= category
             }
 
-            if (sort !== 'null') {
-                console.log('ttp masuk ke sort>>>');
-                if (nameSort === '1') {
-                    order = [
-                        ['name', `${sort}`]
-                    ]
-
-                } else {
-                    order = [
-                        ['price', `${sort}`]
-                    ]
-                }
-            } else {
-                order = [['id', 'ASC']]
-            }
-            console.log('aksed DB');
             result = await ProductsDB.findAll({
                 limit: 10, offset: offset,
-                where: where,
-                order: order
+                where: where
             })
 
             console.log('masuk ')

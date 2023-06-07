@@ -12,9 +12,8 @@ app.get('/', (req, res) => {
 })
 
 // import Routes
-const { productRouter, categoryRouter } = require('./routers')
+const { productRouter } = require('./routers')
 app.use('/products', productRouter)
-app.use('/category', categoryRouter)
 
 
 app.listen(PORT, () => {
