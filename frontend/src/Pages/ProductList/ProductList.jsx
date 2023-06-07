@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from "react"
+import { useEffect, useState } from "react"
 import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
