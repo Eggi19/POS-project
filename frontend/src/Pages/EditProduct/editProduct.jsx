@@ -6,8 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
-import { getAllProductsWithCategory } from '../../API/productAPI';
+import { deleteProduct, getAllProductsWithCategory } from '../../API/productAPI';
 import { useEffect } from 'react';
 
 export default function EditProduct() {
@@ -19,6 +24,15 @@ export default function EditProduct() {
             setDataProducts(result.data.data)
         } catch (error) {
 
+        }
+    }
+
+    const onDeleteProduct = async(productId)=> {
+        try {
+            await deleteProduct(productId)
+            getDataProducts()
+        } catch (error) {
+            
         }
     }
 
@@ -35,6 +49,7 @@ export default function EditProduct() {
                         <TableCell align="left">Category</TableCell>
                         <TableCell align="left">Price</TableCell>
                         <TableCell align="left">Stock</TableCell>
+                        <TableCell align="left"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -51,11 +66,21 @@ export default function EditProduct() {
                             <TableCell align="left">{value.Category?.name}</TableCell>
                             <TableCell align="left">{value.price}</TableCell>
                             {
-                                value.status?
-                                <TableCell align="left">Available</TableCell>
-                                :
-                                <TableCell align="left">Unavailable</TableCell>
+                                value.status ?
+                                    <TableCell align="left">Available</TableCell>
+                                    :
+                                    <TableCell align="left">Unavailable</TableCell>
                             }
+                            <TableCell>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                    <Fab size="small" color="secondary" aria-label="edit">
+                                        <EditIcon />
+                                    </Fab>
+                                    <IconButton aria-label="delete" size="small" onClick={() => onDeleteProduct(value.id)} >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Stack>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

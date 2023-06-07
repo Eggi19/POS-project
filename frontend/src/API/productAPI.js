@@ -19,3 +19,7 @@ export function createProduct(data){
 export function getAllProductsWithCategory() {
    return axios.get(`${process.env.REACT_APP_API_URL}/products/category`)
 }
+
+export function deleteProduct(productId) {
+   return axios.delete(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+}

@@ -138,6 +138,7 @@ export default function CreateProduct() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    fullWidth
                                     id="Category"
                                     select
                                     name="Category"
@@ -178,6 +179,7 @@ export default function CreateProduct() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    fullWidth
                                     id="Stock Status"
                                     select
                                     name="Stock Status"
