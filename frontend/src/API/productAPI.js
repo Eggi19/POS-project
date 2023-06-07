@@ -15,3 +15,7 @@ export function createProduct(data){
       status: data.status
    })
 }
+
+export function getAllProductsWithCategory() {
+   return axios.get(`${process.env.REACT_APP_API_URL}/products/category`)
+}

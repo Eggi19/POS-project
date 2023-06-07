@@ -74,7 +74,7 @@ export default function CreateProduct() {
     const [status, setStatus] = useState('')
 
     const handleSubmit = (data) => {
-        setCategoryId(String(data))
+        setCategoryId(Number(data))
     }
 
     const onCreateProduct = async () => {

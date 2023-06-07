@@ -151,5 +151,25 @@ module.exports = {
                 data: null
             })
         }
+    },
+
+    getProductsWithCategory: async(req, res) => {
+        try {
+            const result = await ProductsDB.findAll({
+                include: db.Category
+            })
+
+            res.status(200).send({
+                success: true,
+                message: "success",
+                data: result
+            })
+        } catch (error) {
+            res.send({
+                success: false,
+                message: error.message,
+                data: null
+            })
+        }
     }
 }
