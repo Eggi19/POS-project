@@ -22,9 +22,9 @@ export default function FilterBar(props) {
     const handleClickSort = (event) => {
         setAnchorElSort(event.currentTarget);
     };
-    const handleCloseSort = (data) => {
+    const handleCloseSort = (data, nameSort) => {
         setAnchorElSort(null);
-        props.setSort(data)
+        props.setSort(data, nameSort)
     };
     return (
         <>
@@ -81,9 +81,11 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'sort-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseSort(null)}>NONE</MenuItem>
-                            <MenuItem onClick={() => handleCloseSort("ASC")}>NAME A TO Z </MenuItem>
-                            <MenuItem onClick={() => handleCloseSort("DESC")}>NAME Z TO A</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort(null, 0)}>NONE</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 1)}>NAME A TO Z </MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 1)}>NAME Z TO A</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 2)}>PRICE LOW TO HIGH</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 2)}>PRICE HIGH TO LOW</MenuItem>
                         </Menu>
                     </div>
                 </div>

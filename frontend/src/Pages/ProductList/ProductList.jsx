@@ -9,12 +9,13 @@ export default function ProductList() {
     const [page, setPage] = useState(1)
     const [category, setCategoryValue] = useState(0)
     const [search, setSearchValue] = useState("")
-    const [sort, setSortValue] = useState("")
+    const [sort, setSortValue] = useState(null)
+    const [nameSort, setNameSort] = useState(0)
 
     const data = async () => {
         try {
             console.log('page', page)
-            const response = await getAllProducts(page, category, search, sort)
+            const response = await getAllProducts(page, category, search, sort, nameSort)
             setProducts(response)
             console.log(response)
         } catch (error) {
@@ -35,8 +36,9 @@ export default function ProductList() {
         setSearchValue(data)
         console.log(data)
     }
-    const setSort = (data) => {
+    const setSort = (data, nameSort) => {
         setSortValue(data)
+        setNameSort(nameSort)
     }
 
     useEffect(() => {
