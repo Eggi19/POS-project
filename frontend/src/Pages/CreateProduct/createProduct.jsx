@@ -80,7 +80,6 @@ export default function CreateProduct() {
     const onCreateProduct = async () => {
         try {
             let _price = Number(price.current.value.split(' ')[1].replace(',', ''))
-            console.log(_price);
             const response = await createProduct({
                 name: productName.current.value,
                 categoryId: categoryId,
