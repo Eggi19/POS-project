@@ -20,6 +20,7 @@ export default function ProductList() {
 
             setProducts(response)
             // setProdCategories(catResponse)
+            // console.log(response?.data?.data?.page);
             // console.log("catRespnse", catResponse)
         } catch (error) {
 
@@ -27,17 +28,17 @@ export default function ProductList() {
     }
     const setPagination = (event, value) => {
         setPage(value)
-        console.log('page1', value)
+        // console.log('page1', value)
     }
     const setCategory = (data) => {
         if (typeof (data) === "number") {
             setCategoryValue(data)
-            console.log(typeof (data))
+            // console.log(typeof (data))
         }
     }
     const setSearch = (data) => {
         setSearchValue(data)
-        console.log(data)
+        // console.log(data)
     }
     const setSort = (data, nameSort) => {
         setSortValue(data)
@@ -62,7 +63,7 @@ export default function ProductList() {
                     })}
                 </div>
                 <div className="p-5">
-                    <PaginationControlled handlePagination={setPagination} />
+                    <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
                 </div>
             </div>
         </>

@@ -15,7 +15,7 @@ export default function PaginationControlled(props) {
             <div className='flex justify-center'>
                 <div>
                     <Stack spacing={1}>
-                        <Pagination count={3} variant='outlined' color='primary' onChange={props.handlePagination} />
+                        <Pagination count={props.totalPage} variant='outlined' color='primary' onChange={props.handlePagination} />
                     </Stack>
                 </div>
             </div>

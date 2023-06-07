@@ -71,9 +71,9 @@ export default function FilterBar(props) {
                             
                             {
                                 
-                                prodCategories?.map((value, index) => (
-                                    <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
-                                ))
+                                // prodCategories?.data?.map((value, index) => (
+                                //     <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
+                                // ))
 
 
                             }
