@@ -23,17 +23,18 @@ import { deleteProduct, getAllProductsWithCategory } from '../../API/productAPI'
 import { useEffect } from 'react';
 
 export default function EditProduct() {
+    const [currentDataProduct, setCurrentDataProduct] = useState([])
     //Dialog
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (data) => {
+        setCurrentDataProduct(data)
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-
 
     const [dataProducts, setDataProducts] = useState([])
 
@@ -78,7 +79,6 @@ export default function EditProduct() {
                                 key={value.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                {console.log(value)}
                                 <TableCell component="th" scope="row">
                                     <img className='w-24' src={value.imageURL} alt="" />
                                 </TableCell>
@@ -93,7 +93,7 @@ export default function EditProduct() {
                                 }
                                 <TableCell>
                                     <Stack direction="row" alignItems="center" spacing={1}>
-                                        <Fab size="small" color="secondary" aria-label="edit" onClick={handleClickOpen} >
+                                        <Fab size="small" color="secondary" aria-label="edit" onClick={() => handleClickOpen(value)} >
                                             <EditIcon />
                                         </Fab>
                                         <IconButton aria-label="delete" size="small" onClick={() => onDeleteProduct(value.id)} >
@@ -113,7 +113,7 @@ export default function EditProduct() {
                         To subscribe to this website, please enter your email address here. We
                         will send updates occasionally.
                     </DialogContentText>
-                    <EditComponent />
+                    <EditComponent data={currentDataProduct}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>

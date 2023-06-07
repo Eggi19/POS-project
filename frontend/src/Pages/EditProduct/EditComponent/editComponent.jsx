@@ -17,7 +17,8 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { getAllCategory } from '../../../API/categoryAPI';
 import { useEffect } from 'react';
-import { createProduct } from '../../../API/productAPI';
+import { editProduct } from '../../../API/productAPI';
+import toast, { Toaster } from 'react-hot-toast';
 
 const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(
     props,
@@ -77,19 +78,25 @@ export default function EditComponent(props) {
         setCategoryId(Number(data))
     }
 
-    const onCreateProduct = async () => {
+    const onEditProduct = async () => {
         try {
             let _price = Number(price.current.value.split(' ')[1].replace(',', ''))
-            const response = await createProduct({
+            const response = await editProduct({
                 name: productName.current.value,
                 categoryId: categoryId,
                 imageURL: imageURL.current.value,
                 price: _price,
-                status: status
+                status: status,
+                id: props.data.id
             })
-            console.log(response);
-        } catch (error) {
 
+            if (response.data.success) {
+                toast.success('Successfully Edit!')
+            } else {
+                throw {message: 'Edit Product is failed!'}
+            }
+        } catch (error) {
+            toast.error(error.message)
         }
     }
 
@@ -107,6 +114,10 @@ export default function EditComponent(props) {
     }, [])
     return (
         <ThemeProvider theme={defaultTheme}>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -133,6 +144,7 @@ export default function EditComponent(props) {
                                     label="Product Name"
                                     name="product name"
                                     autoComplete="product name"
+                                    defaultValue={props.data?.name}
                                     inputRef={productName}
                                 />
                             </Grid>
@@ -143,7 +155,7 @@ export default function EditComponent(props) {
                                     select
                                     name="Category"
                                     label="Category"
-                                    defaultValue=""
+                                    defaultValue=''
                                     helperText="Please select product category"
                                 >
                                     {productCategories.map((value) => (
@@ -161,6 +173,7 @@ export default function EditComponent(props) {
                                     label="Image URL"
                                     id="image"
                                     type='url'
+                                    defaultValue={props.data?.imageURL}
                                     inputRef={imageURL}
                                 />
                             </Grid>
@@ -174,6 +187,7 @@ export default function EditComponent(props) {
                                     InputProps={{
                                         inputComponent: NumericFormatCustom,
                                     }}
+                                    defaultValue={props.data.price}
                                     inputRef={price}
                                 />
                             </Grid>
@@ -184,6 +198,7 @@ export default function EditComponent(props) {
                                     select
                                     name="Stock Status"
                                     label="Stock Status"
+                                    defaultValue=''
                                     helperText="Please select product status"
                                 >
                                     <MenuItem value='Available' onClick={() => setStatus(true)}>
@@ -202,7 +217,7 @@ export default function EditComponent(props) {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    onClick={onCreateProduct}
+                    onClick={onEditProduct}
                 >
                     Create Product
                 </Button>
