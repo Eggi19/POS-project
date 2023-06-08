@@ -29,6 +29,9 @@ function App() {
         <Route path='/editProduct' element={
           <EditProduct />
         } />
+        <Route path='/categories' element={
+          <CategoryPage />
+        } />
       </Routes>
     </>
   );
