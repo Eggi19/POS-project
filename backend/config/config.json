@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "POS_project",
+    "password": "jcwd2402",
+    "database": "pos_project",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

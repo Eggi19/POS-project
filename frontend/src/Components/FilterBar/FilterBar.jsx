@@ -4,10 +4,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { getAllCategory } from '../../API/categoryAPI';
+import { useEffect } from 'react';
+
 
 export default function FilterBar(props) {
     const [anchorElCat, setAnchorElCat] = React.useState(null);
     const openCat = Boolean(anchorElCat);
+    const [prodCategories, setProdCategories] = React.useState("")
     const handleClickCat = (event) => {
         setAnchorElCat(event.currentTarget);
     };
@@ -22,9 +26,21 @@ export default function FilterBar(props) {
     const handleClickSort = (event) => {
         setAnchorElSort(event.currentTarget);
     };
-    const handleCloseSort = () => {
+    const handleCloseSort = (data, nameSort) => {
         setAnchorElSort(null);
+        props.setSort(data, nameSort)
     };
+
+    const getCategoryList = async () => {
+        const result = await getAllCategory()
+        setProdCategories(result)
+        console.log("category", result.data?.data)
+
+    }
+    useEffect(() => {
+        getCategoryList()
+        console.log("prdocat",prodCategories)
+    }, [])
     return (
         <>
             <div className='md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
@@ -52,10 +68,13 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'category-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseCat(0)}>NONE</MenuItem>
-                            <MenuItem onClick={() => handleCloseCat(1)}>FOOD</MenuItem>
-                            <MenuItem onClick={() => handleCloseCat(2)}>DRINK</MenuItem>
-                            <MenuItem onClick={() => handleCloseCat(3)}>SIDE DISH</MenuItem>
+
+                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>                       
+                            {
+                                prodCategories.data?.data?.map((value, index) => (
+                                    <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
+                                ))
+                            }
                         </Menu>
                     </div>
                     <div>
@@ -80,18 +99,23 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'sort-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseSort(null)}>NONE</MenuItem>
-                            <MenuItem onClick={() => handleCloseSort("ASC")}>NAME A TO Z </MenuItem>
-                            <MenuItem onClick={() => handleCloseSort("DESC")}>NAME Z TO A</MenuItem>
+
+                            <MenuItem onClick={() => handleCloseSort(null, 0)}>none</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 1)}>name a to z </MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 1)}>name z to a</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 2)}>price low to high</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 2)}>price high to low</MenuItem>
+
                         </Menu>
                     </div>
                 </div>
                 <div>
                     <TextField
-                        id="outlined-basic" 
-                        label="Search" 
+                        id="outlined-basic"
+                        label="Search"
                         variant="outlined"
-                        className=' bg-white' 
+                        className=' bg-white'
+
                         onChange={(event) => {
                             props.setSearch(event.target.value);
                         }} />

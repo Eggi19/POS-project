@@ -1,7 +1,7 @@
-const categoryController = require('./categoryController')
 const productController = require('./productController')
+const categoryController = require('./categoryController')
 
-module.exports= {
-    categoryController,
-    productController
+module.exports = {
+    productController,
+    categoryController
 }

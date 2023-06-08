@@ -16,7 +16,6 @@ const { productRouter, categoryRouter } = require('./routers')
 app.use('/products', productRouter)
 app.use('/categories', categoryRouter)
 
-
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)
 })
