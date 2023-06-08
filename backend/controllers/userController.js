@@ -11,8 +11,9 @@ module.exports = {
                     userName: userName
                 }
             })
-
+            console.log(JSON.stringify(findUser));
             if(password === confirmPassword && !findUser && password.length >= 8){
+                console.log('masuk');
                 const salt = await bcrypt.genSalt(10)
                 const hashPassword = await bcrypt.hash(password, salt)
                 const result = await User.create({userName, password: hashPassword, role})
@@ -23,23 +24,11 @@ module.exports = {
                     data: result
                 })
             }else if(findUser){
-                return res.status(400).send({
-                    success: false,
-                    message: "Username had been registered",
-                    data: null
-                })
+                throw {message: "Username had been registered"}
             }else if(password !== confirmPassword){
-                return res.status(400).send({
-                    success: false,
-                    message: "password does not match",
-                    data: null
-                })
+                throw {message: "password does not match"}
             }else if(password.length < 8){
-                return res.status(400).send({
-                    success: false,
-                    message: "password must include more than 8 characters",
-                    data: null
-                })
+                throw {message: "password must include more than 8 characters"}
             }
         } catch (error) {
             res.send({
