@@ -47,7 +47,7 @@ export default function ProductList() {
 
     useEffect(() => {
         data()
-    }, [page, category, search, sort])
+    }, [page, category, search, sort, nameSort])
 
     return (
         <>

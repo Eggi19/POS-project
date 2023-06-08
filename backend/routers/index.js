@@ -4,5 +4,6 @@ const authRouter = require('./authRouter')
 
 module.exports = {
     categoryRouter,
-    productRouter
+    productRouter,
+    authRouter
 }

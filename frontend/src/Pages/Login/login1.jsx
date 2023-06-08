@@ -10,9 +10,9 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
-
-
+import { login } from '../../API/authAPI';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -32,17 +32,34 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate()
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       username: data.get('username'),
       password: data.get('password'),
     });
-    const response = axios.post(
-    
-    )
+    const userName = data.get('username')
+    const password = data.get('password')
 
+    if (!userName || !password) {
+      toast.error('data incomplete')
+    } else {
+      const response = await login(userName, password)
+      console.log("response FE", response.data)
+      // process.exit()
+      if (response.data?.success === false) {
+        toast.error(response?.data?.message)
+      } else if (response.data?.success === true) {
+        setTimeout(() => {
+          response.data?.data?.role === 'admin' ? navigate('/editproduct') : navigate('/products')
+
+        }, 2000);
+        toast.success(response?.data?.message)
+
+      }
+    }
   };
 
   return (
@@ -55,11 +72,11 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://www.possystems.com/images/company/Logo256px.png)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
+            backgroundSize: 'widht=100 height=100',
             backgroundPosition: 'center',
           }}
         />
@@ -73,6 +90,9 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
+            <Typography component="h2" variant="h5">
+              WELCOME TO POS
+            </Typography>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
@@ -121,6 +141,7 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+      <Toaster />
     </ThemeProvider>
   );
 }

@@ -39,11 +39,11 @@ export default function FilterBar(props) {
     }
     useEffect(() => {
         getCategoryList()
-        console.log("prdocat",prodCategories)
+        console.log("prdocat", prodCategories)
     }, [])
     return (
         <>
-            <div className='md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
+            <div className='sm:hidden md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
                 <div className='flex gap-5 py-3'>
                     <div>
                         <Button
@@ -69,7 +69,7 @@ export default function FilterBar(props) {
                             }}
                         >
 
-                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>                       
+                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>
                             {
                                 prodCategories.data?.data?.map((value, index) => (
                                     <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
@@ -94,7 +94,7 @@ export default function FilterBar(props) {
                             id="sort-menu"
                             anchorEl={anchorElSort}
                             open={openSort}
-                            onClose={handleCloseSort}
+                            onClose={() => setAnchorElSort(null)}
                             MenuListProps={{
                                 'aria-labelledby': 'sort-button',
                             }}
