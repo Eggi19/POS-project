@@ -17,7 +17,6 @@ app.use('/products', productRouter)
 app.use('/categories', categoryRouter)
 app.use('/users', userRouter)
 
-
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)
 })
