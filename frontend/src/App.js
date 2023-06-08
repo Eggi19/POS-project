@@ -3,6 +3,9 @@ import './App.css';
 // import SignIn from './Pages/Login/login';
 import ProductList from './Pages/ProductList/ProductList';
 import SignInSide from './Pages/Login/login1';
+import CategoryPage from './Pages/CategoryList/CategoryList';
+import CreateProduct from './Pages/CreateProduct/createProduct';
+import EditProduct from './Pages/EditProduct/editProduct';
 
 
 function App() {
@@ -19,6 +22,12 @@ function App() {
           <>
             <SignInSide />
           </>
+        } />
+        <Route path='/newProduct' element={
+          <CreateProduct />
+        } />
+        <Route path='/editProduct' element={
+          <EditProduct />
         } />
       </Routes>
     </>
