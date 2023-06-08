@@ -10,7 +10,8 @@ module.exports = {
                     userName: userName
                 }
             })
-            if(password === confirmPassword && !findUser){
+
+            if(password === confirmPassword && !findUser && password.length >= 8){
                 const result = await User.create({userName, password, role})
 
                 return res.status(200).send({
@@ -28,6 +29,12 @@ module.exports = {
                 return res.status(400).send({
                     success: false,
                     message: "password does not match",
+                    data: null
+                })
+            }else if(password.length < 8){
+                return res.status(400).send({
+                    success: false,
+                    message: "password must include more than 8 characters",
                     data: null
                 })
             }
