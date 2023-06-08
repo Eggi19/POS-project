@@ -7,6 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { getAllCategory } from '../../API/categoryAPI';
 import { useEffect } from 'react';
 
+
 export default function FilterBar(props) {
     const [anchorElCat, setAnchorElCat] = React.useState(null);
     const openCat = Boolean(anchorElCat);
@@ -67,19 +68,13 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'category-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>
-                            
+
+                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>                       
                             {
-                                
                                 prodCategories.data?.data?.map((value, index) => (
                                     <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
                                 ))
-
-
                             }
-                            {/* <MenuItem onClick={() => handleCloseCat(1)}>FOOD</MenuItem>
-                            <MenuItem onClick={() => handleCloseCat(2)}>DRINK</MenuItem>
-                            <MenuItem onClick={() => handleCloseCat(3)}>SIDE DISH</MenuItem> */}
                         </Menu>
                     </div>
                     <div>
@@ -104,11 +99,13 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'sort-button',
                             }}
                         >
+
                             <MenuItem onClick={() => handleCloseSort(null, 0)}>none</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("ASC", 1)}>name a to z </MenuItem>
                             <MenuItem onClick={() => handleCloseSort("DESC", 1)}>name z to a</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("ASC", 2)}>price low to high</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("DESC", 2)}>price high to low</MenuItem>
+
                         </Menu>
                     </div>
                 </div>
@@ -118,6 +115,7 @@ export default function FilterBar(props) {
                         label="Search"
                         variant="outlined"
                         className=' bg-white'
+
                         onChange={(event) => {
                             props.setSearch(event.target.value);
                         }} />
