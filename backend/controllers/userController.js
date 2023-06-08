@@ -1,5 +1,6 @@
 const db = require('../models')
 const User = db.User
+const bcrypt = require('bcrypt')
 
 module.exports = {
     createUser: async (req, res) => {
@@ -12,7 +13,9 @@ module.exports = {
             })
 
             if(password === confirmPassword && !findUser && password.length >= 8){
-                const result = await User.create({userName, password, role})
+                const salt = await bcrypt.genSalt(10)
+                const hashPassword = await bcrypt.hash(password, salt)
+                const result = await User.create({userName, password: hashPassword, role})
 
                 return res.status(200).send({
                     success: true,
