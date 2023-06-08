@@ -30,8 +30,6 @@ export default function ProductList() {
         setPage(value)
         // console.log('page1', value)
     }
-  
-    
     const setSort = (data, nameSort) => {
         setSortValue(data)
         setNameSort(nameSort)
