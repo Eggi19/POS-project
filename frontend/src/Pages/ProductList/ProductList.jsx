@@ -30,16 +30,6 @@ export default function ProductList() {
         setPage(value)
         // console.log('page1', value)
     }
-    const setCategory = (data) => {
-        if (typeof (data) === "number") {
-            setCategoryValue(data)
-            // console.log(typeof (data))
-        }
-    }
-    const setSearch = (data) => {
-        setSearchValue(data)
-        // console.log(data)
-    }
     const setSort = (data, nameSort) => {
         setSortValue(data)
         setNameSort(nameSort)
