@@ -17,11 +17,11 @@ export default function ProductList() {
             console.log('page', page)
             const response = await getAllProducts(page, category, search, sort, nameSort)
             // const catResponse = await getAllCategory()
+            console.log("Respnse", response)
 
             setProducts(response)
             // setProdCategories(catResponse)
             // console.log(response?.data?.data?.page);
-            // console.log("catRespnse", catResponse)
         } catch (error) {
 
         }

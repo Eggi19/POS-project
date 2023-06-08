@@ -32,7 +32,7 @@ export default function FilterBar(props) {
 
     const getCategoryList = async () => {
         const result = await getAllCategory()
-        setProdCategories(result.data?.data)
+        setProdCategories(result)
         console.log("category", result.data?.data)
 
     }
@@ -71,9 +71,9 @@ export default function FilterBar(props) {
                             
                             {
                                 
-                                // prodCategories?.data?.map((value, index) => (
-                                //     <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
-                                // ))
+                                prodCategories.data?.data?.map((value, index) => (
+                                    <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
+                                ))
 
 
                             }

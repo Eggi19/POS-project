@@ -5,27 +5,47 @@ const { Op } = require("sequelize");
 module.exports = {
     getProduct: async (req, res) => {
         try {
-            const { page, category, search } = req.query
+            const { page, category, search, sort, nameSort } = req.query
             const limit = 10
             const offset = (page - 1) * limit
             let result
             let where = undefined
+            let order = undefined
+            let orderType = ''
             const response = await ProductsDB.count()
-            let totalPage = Math.ceil(response/ limit)
-            console.log("total", response );
-            
+            let totalPage = Math.ceil(response / limit)
+            console.log("total", nameSort);
+
+            if (nameSort === '1') {
+                orderType = 'name'
+            } else if (nameSort === '2') {
+                orderType = 'price'
+            }
+
             if (search) {
                 where = {}
-                where.name = { [Op.like]: `%${search}%` }
+                where.name = {
+                    [Op.like]: `%${search}%`,
+
+                }
             }
             if (category !== '0') {
                 where = {}
                 console.log('masuk cat + search')
                 where.categoryId = category
             }
+            console.log('sort', sort)
+            if (sort !== "null") {
+
+                order = [[`${orderType}`, `${sort}`]]
+            } else {
+                order = [['id', 'ASC']]
+            }
             result = await ProductsDB.findAll({
                 limit: limit, offset: offset,
-                where: where
+                where: where,
+                order: order
+
             })
             console.log('masuk ', result.length)
             // console.log('masuk ')
