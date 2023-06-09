@@ -7,8 +7,7 @@ import CategoryPage from './Pages/CategoryList/CategoryList';
 import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
 import SignUp from './Pages/SignUp/signUp';
-import Cart from './Pages/Cart/cart';
-
+import Cart from './Components/Cart/cart';
 
 function App() {
   return (
