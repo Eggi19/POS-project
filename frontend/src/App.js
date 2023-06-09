@@ -6,6 +6,7 @@ import SignInSide from './Pages/Login/login1';
 import CategoryPage from './Pages/CategoryList/CategoryList';
 import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
+import SignUp from './Pages/SignUp/signUp';
 
 
 function App() {
@@ -28,6 +29,12 @@ function App() {
         } />
         <Route path='/editProduct' element={
           <EditProduct />
+        } />
+        <Route path='/categories' element={
+          <CategoryPage />
+        } />
+        <Route path='/register' element={
+          <SignUp />
         } />
       </Routes>
     </>
