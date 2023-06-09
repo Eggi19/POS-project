@@ -7,6 +7,7 @@ import CategoryPage from './Pages/CategoryList/CategoryList';
 import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
 import SignUp from './Pages/SignUp/signUp';
+import Cart from './Pages/Cart/cart';
 
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
         } />
         <Route path='/register' element={
           <SignUp />
+        } />
+        <Route path='/cart' element={
+          <Cart />
         } />
       </Routes>
     </>
