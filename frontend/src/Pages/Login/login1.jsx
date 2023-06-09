@@ -54,10 +54,8 @@ export default function SignInSide() {
       } else if (response.data?.success === true) {
         setTimeout(() => {
           response.data?.data?.role === 'admin' ? navigate('/editproduct') : navigate('/products')
-
         }, 2000);
         toast.success(response?.data?.message)
-
       }
     }
   };
