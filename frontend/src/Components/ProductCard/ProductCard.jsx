@@ -11,7 +11,7 @@ export default function ProductCard(props) {
                 <div className="pt-2"> {props.data?.name}</div>
                 <div className="pt-2 absolute bottom-2"> {`Rp. ${props.data?.price.toLocaleString()}`}</div>
                 <div className='absolute bottom-1 right-1'>
-                    <IconButton aria-label="delete" size="small">
+                    <IconButton onClick={() => props.func({id: props.data?.id, name: props.data?.name, price: props.data?.price, qty: 1})} aria-label="delete" size="small">
                         <AddIcon />
                     </IconButton>
                 </div>

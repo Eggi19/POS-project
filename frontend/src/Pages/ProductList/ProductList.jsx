@@ -25,6 +25,42 @@ export default function ProductList() {
         setOpen(false);
     };
 
+    //transaction
+    const [sales, setSales] = useState([])
+    const onTransaction = (data) => {
+        try {
+            let validation = false
+            let idx
+
+            if (sales.length !== 0) {
+                sales.map((value, index) => {
+                    if (value.id === data.id) {
+                        validation = true
+                        idx = index
+                    }
+                })
+
+                if (!validation) {
+                    const newData = [...sales]
+                    console.log(newData);
+                    newData.push(data)
+                    setSales(newData)
+                } else if(validation){
+                    const newData = [...sales]
+                    const curQty = newData[idx].qty
+                    newData[idx].qty = curQty + 1
+                    setSales(newData)
+                }
+            } else if (sales.length === 0) {
+                const newData = []
+                newData.push(data)
+                setSales(newData)
+            }
+        } catch (error) {
+
+        }
+    }
+
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1)
     const [category, setCategoryValue] = useState(0)
@@ -83,7 +119,7 @@ export default function ProductList() {
                     {products?.data?.data?.map((value, index) => {
                         return (
                             <div className="p-3" key={`p${index}`}>
-                                <ProductCard data={value} />
+                                <ProductCard data={value} func={onTransaction} />
                             </div>
                         )
                     })}
