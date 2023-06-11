@@ -47,11 +47,11 @@ export default function SignInSide() {
       toast.error('data incomplete')
     } else {
       const response = await login(userName, password)
-      console.log("response FE", response.data)
+      console.log("response FE", response?.data)
       // process.exit()
-      if (response.data?.success === false) {
+      if (response?.data?.success === false) {
         toast.error(response?.data?.message)
-      } else if (response.data?.success === true) {
+      } else if (response?.data?.success === true) {
         setTimeout(() => {
           response.data?.data?.role === 'admin' ? navigate('/editproduct') : navigate('/products')
         }, 2000);

@@ -19,7 +19,7 @@ function App() {
             <ProductList />
           </>
         } />
-        <Route path='/login1' element={
+        <Route path='/' element={
           <>
             <SignInSide />
           </>

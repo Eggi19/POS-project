@@ -41,7 +41,7 @@ export default function EditProduct() {
     const getDataProducts = async () => {
         try {
             const result = await getAllProductsWithCategory()
-            setDataProducts(result.data.data)
+            setDataProducts(result?.data?.data)
         } catch (error) {
 
         }
@@ -74,7 +74,7 @@ export default function EditProduct() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {dataProducts.map((value) => (
+                        {dataProducts?.map((value) => (
                             <TableRow
                                 key={value.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
