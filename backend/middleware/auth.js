@@ -3,17 +3,17 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     verifyUser: (req, res, next) => {
         console.log('masuk verify user');
-        let token = req.headers
+        let token = req.headers['authitication']
         console.log('token', token)
-        if (!token) {
-            return res.status(401).send('accsess denied1')
-        }
         try {
+            if (!token) {
+                return res.status(401).send('accsess denied1')
+            }
+            let verifiedUser = jwt.verify(token, 'adminVerification')
             token = token.split(' ')[1]
             if (token === null || !token) {
                 return res.status(401).send('accsess denied2')
             }
-            let verifiedUser = jwt.verify(token, 'adminVerification')
             if (!verifiedUser) {
                 return res.status(401).send('accsess denied3')
             } else {
@@ -25,7 +25,7 @@ module.exports = {
         }
     },
 
- checkRole: async (req, res, next) => {
+    checkRole: async (req, res, next) => {
         if (req.user?.role === 'admin') {
             next()
         } else {

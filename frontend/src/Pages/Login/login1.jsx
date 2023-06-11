@@ -48,6 +48,7 @@ export default function SignInSide() {
     } else {
       const response = await login(userName, password)
       console.log("response FE", response?.data)
+      localStorage.setItem('role',response.data?.data?.role)
       // process.exit()
       if (response?.data?.success === false) {
         toast.error(response?.data?.message)

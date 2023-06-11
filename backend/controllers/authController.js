@@ -23,10 +23,10 @@ module.exports = {
                 // console.log('validation', validaiton)
                 if (validaiton) {
                     // console.log('masuk validation if')
-                    let payload = { userName, role: data.role }
+                    let payload = { userName, role: data?.role }
                     console.log('payload', payload)
                     const token = jwt.sign(payload, 'adminVerification', { expiresIn: '1h' })
-                    return res.status(200).json({
+                    return res.json({
                         token: token,
                         success: true,
                         message: 'login success',
