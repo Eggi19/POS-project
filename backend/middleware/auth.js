@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     verifyUser: (req, res, next) => {
         console.log('masuk verify user');
-        let token = req.headers['authitication']
+        let token = req.headers
         console.log('token', token)
         try {
             if (!token) {
