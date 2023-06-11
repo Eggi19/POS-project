@@ -18,6 +18,8 @@ import { useState } from 'react';
 import { getAllCategory } from '../../API/categoryAPI';
 import { useEffect } from 'react';
 import { createProduct } from '../../API/productAPI';
+import { useNavigate } from 'react-router-dom';
+
 
 const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(
     props,
@@ -65,6 +67,11 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function CreateProduct() {
+    const navigate = useNavigate()
+    const role = localStorage.getItem('role')
+
+    if (role !== 'admin') { navigate('/products') }
+
     const [productCategories, setProductCategories] = useState([])
 
     const productName = useRef()
