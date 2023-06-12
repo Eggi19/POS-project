@@ -131,7 +131,7 @@ export default function ProductList() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Product</DialogTitle>
                 <DialogContent>
-                    <Cart />
+                    <Cart data={sales}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
