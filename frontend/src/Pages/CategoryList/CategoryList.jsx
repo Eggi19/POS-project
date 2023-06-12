@@ -22,8 +22,14 @@ import { addCategory, getAllCategory, modifyCategory } from '../../API/categoryA
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function BasicTable() {
+  const navigate = useNavigate()
+  const role = localStorage.getItem('role')
+
+  if (role !== 'admin') { navigate('/products') }
   const [editStatus, setEditStatus] = useState([])
   const [open, setOpen] = React.useState(false);
   const _addCategory = useRef()
@@ -99,7 +105,7 @@ export default function BasicTable() {
                 {
                   value.status ?
                     <>
-                      <TableCell component="th" scope="row" style={{width: "50%"}}>
+                      <TableCell component="th" scope="row" style={{ width: "50%" }}>
                         <TextField
                           required
                           id="outlined-required"
@@ -108,7 +114,7 @@ export default function BasicTable() {
                           inputRef={_name}
                         />
                       </TableCell>
-                      <TableCell style={{width: "50%"}}>
+                      <TableCell style={{ width: "50%" }}>
                         <Stack direction="row" spacing={2}>
                           <Button onClick={() => { onChangeStatus(index, value.id, _name.current.value) }} color="success" size="small" variant="contained" startIcon={<CheckCircleOutlineIcon />}>
                             Save
@@ -118,10 +124,10 @@ export default function BasicTable() {
                     </>
                     :
                     <>
-                      <TableCell component="th" scope="row" style={{width: "50%"}}>
+                      <TableCell component="th" scope="row" style={{ width: "50%" }}>
                         {value.name}
                       </TableCell>
-                      <TableCell style={{width: "50%"}}>
+                      <TableCell style={{ width: "50%" }}>
                         <Stack direction="row" spacing={2}>
                           <Button onClick={() => onChangeStatus(index)} size="small" variant="contained" startIcon={<EditSharpIcon />}>
                             Edit
