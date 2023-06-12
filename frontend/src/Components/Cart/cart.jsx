@@ -55,9 +55,11 @@ export default function Cart(props) {
                 setTransactionData([])
                 setTotalTransaction(0)
                 props.func([])
+            } else {
+                throw { message: "Transaction Failed!" }
             }
         } catch (error) {
-
+            toast.error(error.message)
         }
     }
 
@@ -70,54 +72,59 @@ export default function Cart(props) {
                 position="top-center"
                 reverseOrder={false}
             />
-            <React.Fragment>
-                <List disablePadding>
-                    {transactionData.map((value) => (
-                        <ListItem key={value.name} sx={{ py: 1, px: 0 }}>
-                            <ListItemText primary={value.name} secondary={`Rp ${value.price.toLocaleString()} x ${value.qty}`} />
-                            <Typography variant="body2">Rp {(value.price * value.qty).toLocaleString()}</Typography>
-                        </ListItem>
-                    ))}
+            {
+                transactionData.length > 0 ?
+                    <React.Fragment>
+                        <List disablePadding>
+                            {transactionData.map((value) => (
+                                <ListItem key={value.name} sx={{ py: 1, px: 0 }}>
+                                    <ListItemText primary={value.name} secondary={`Rp ${value.price.toLocaleString()} x ${value.qty}`} />
+                                    <Typography variant="body2">Rp {(value.price * value.qty).toLocaleString()}</Typography>
+                                </ListItem>
+                            ))}
 
-                    <ListItem sx={{ py: 1, px: 0 }}>
-                        <ListItemText primary="Total" />
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                            Rp {totalTransaction.toLocaleString()}
+                            <ListItem sx={{ py: 1, px: 0 }}>
+                                <ListItemText primary="Total" />
+                                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                                    Rp {totalTransaction.toLocaleString()}
+                                </Typography>
+                            </ListItem>
+                        </List>
+                        <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                            Payment details
                         </Typography>
-                    </ListItem>
-                </List>
-                <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                    Payment details
-                </Typography>
-                <Grid container spacing={8}>
-                    <Grid item xs={6}>
-                        Payment Type:
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            fullWidth
-                            id="Payment Type"
-                            select
-                            name="Payment Type"
-                            label="Payment Type"
-                            helperText="Please select payment type"
-                        >
-                            <MenuItem value='Debit' onClick={() => setPaymentType('debit')}>
-                                Debit
-                            </MenuItem>
-                            <MenuItem value='Credit' onClick={() => setPaymentType('credit')}>
-                                Credit
-                            </MenuItem>
-                            <MenuItem value='Cash' onClick={() => setPaymentType('cash')}>
-                                Cash
-                            </MenuItem>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={6} fullWidth>
-                        <Button variant="contained" onClick={createTransaction}>Create Transaction</Button>
-                    </Grid>
-                </Grid>
-            </React.Fragment>
+                        <Grid container spacing={8}>
+                            <Grid item xs={6}>
+                                Payment Type:
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    id="Payment Type"
+                                    select
+                                    name="Payment Type"
+                                    label="Payment Type"
+                                    helperText="Please select payment type"
+                                >
+                                    <MenuItem value='Debit' onClick={() => setPaymentType('debit')}>
+                                        Debit
+                                    </MenuItem>
+                                    <MenuItem value='Credit' onClick={() => setPaymentType('credit')}>
+                                        Credit
+                                    </MenuItem>
+                                    <MenuItem value='Cash' onClick={() => setPaymentType('cash')}>
+                                        Cash
+                                    </MenuItem>
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={6} fullWidth>
+                                <Button variant="contained" onClick={createTransaction}>Create Transaction</Button>
+                            </Grid>
+                        </Grid>
+                    </React.Fragment>
+                    :
+                    <h1>CREATE NEW ORDER</h1>
+            }
         </>
     )
 }
