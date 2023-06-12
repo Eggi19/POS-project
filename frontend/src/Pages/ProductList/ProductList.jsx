@@ -129,7 +129,7 @@ export default function ProductList() {
                 </div>
             </div>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Edit Product</DialogTitle>
+                <DialogTitle>Order Summary</DialogTitle>
                 <DialogContent>
                     <Cart data={sales}/>
                 </DialogContent>

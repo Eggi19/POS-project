@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { postInvoice, postSale } from '../../API/transactionAPI';
@@ -14,12 +15,13 @@ import { postInvoice, postSale } from '../../API/transactionAPI';
 export default function Cart(props) {
     const [totalTransaction, setTotalTransaction] = useState(0)
     const [paymentType, setPaymentType] = useState('')
+    const [transactionData, setTransactionData] = useState(props.data)
     const userId = localStorage.getItem('id')
 
     const totalPrice = () => {
         try {
             let result = 0
-            props.data.map((value) => {
+            transactionData.map((value) => {
                 result += value.price * value.qty
             })
             setTotalTransaction(result)
@@ -37,14 +39,22 @@ export default function Cart(props) {
             }
             const invoiceResult = await postInvoice(invoiceData)
 
-            const getInvoiceId = invoiceResult.data?.data?.id
-            const saleData = props.data.map(({id, qty, price}) => ({
-                invoiceId: getInvoiceId,
-                productId: id,
-                quantity: qty,
-                subTotal: qty*price
-            }))
-            await postSale(saleData)
+            if (invoiceResult.data?.success) {
+                const getInvoiceId = invoiceResult.data?.data?.id
+                const saleData = transactionData.map(({ id, qty, price }) => ({
+                    invoiceId: getInvoiceId,
+                    productId: id,
+                    quantity: qty,
+                    subTotal: qty * price
+                }))
+                var saleResult = await postSale(saleData)
+            }
+
+            if (invoiceResult.data?.success && saleResult.data?.success) {
+                toast.success('Transaction Success!')
+                setTransactionData([])
+                setTotalTransaction(0)
+            }
         } catch (error) {
 
         }
@@ -55,12 +65,13 @@ export default function Cart(props) {
     }, [totalTransaction])
     return (
         <>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <React.Fragment>
-                <Typography variant="h6" gutterBottom>
-                    Order summary
-                </Typography>
                 <List disablePadding>
-                    {props.data.map((value) => (
+                    {transactionData.map((value) => (
                         <ListItem key={value.name} sx={{ py: 1, px: 0 }}>
                             <ListItemText primary={value.name} secondary={`Rp ${value.price.toLocaleString()} x ${value.qty}`} />
                             <Typography variant="body2">Rp {(value.price * value.qty).toLocaleString()}</Typography>
