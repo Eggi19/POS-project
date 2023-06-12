@@ -63,6 +63,13 @@ export default function Cart(props) {
         }
     }
 
+    const resetTransaction = () => {
+        toast.success('Reset Cart Success!')
+        setTransactionData([])
+        setTotalTransaction(0)
+        props.func([])
+    }
+
     useEffect(() => {
         totalPrice()
     }, [totalTransaction])
@@ -116,6 +123,9 @@ export default function Cart(props) {
                                         Cash
                                     </MenuItem>
                                 </TextField>
+                            </Grid>
+                            <Grid item xs={6} fullWidth>
+                                <Button variant="contained" onClick={resetTransaction}>Reset Cart</Button>
                             </Grid>
                             <Grid item xs={6} fullWidth>
                                 <Button variant="contained" onClick={createTransaction}>Create Transaction</Button>
