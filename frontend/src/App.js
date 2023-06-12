@@ -7,6 +7,7 @@ import CategoryPage from './Pages/CategoryList/CategoryList';
 import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
 import SignUp from './Pages/SignUp/signUp';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
         } />
         <Route path='/register' element={
           <SignUp />
+        } />
+        <Route path='/dashboard' element={
+          <Dashboard />
         } />
       </Routes>
     </>

@@ -32,9 +32,14 @@ export default function FilterBar(props) {
     };
 
     const getCategoryList = async () => {
-        const result = await getAllCategory()
-        setProdCategories(result)
-        console.log("category", result.data?.data)
+        try {
+            const result = await getAllCategory()
+            setProdCategories(result)
+            console.log("category", result.data?.data)
+
+        } catch (error) {
+
+        }
 
     }
     useEffect(() => {
