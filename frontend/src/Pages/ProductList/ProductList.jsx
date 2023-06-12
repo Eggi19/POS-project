@@ -1,10 +1,66 @@
+import * as React from 'react';
 import { useEffect, useState, createContext } from "react"
 import { getAllProducts } from "../../API/productAPI"
 import FilterBar from "../../Components/FilterBar/FilterBar"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 import PaginationControlled from "../../Components/Pagination/Pagination"
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Fab from '@mui/material/Fab';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Cart from '../../Components/Cart/cart';
 
 export default function ProductList() {
+    //Dialog
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    //transaction
+    const [sales, setSales] = useState([])
+    const onTransaction = (data) => {
+        try {
+            let validation = false
+            let idx
+
+            if (sales.length !== 0) {
+                sales.map((value, index) => {
+                    if (value.id === data.id) {
+                        validation = true
+                        idx = index
+                    }
+                })
+
+                if (!validation) {
+                    const newData = [...sales]
+                    console.log(newData);
+                    newData.push(data)
+                    setSales(newData)
+                } else if(validation){
+                    const newData = [...sales]
+                    const curQty = newData[idx].qty
+                    newData[idx].qty = curQty + 1
+                    setSales(newData)
+                }
+            } else if (sales.length === 0) {
+                const newData = []
+                newData.push(data)
+                setSales(newData)
+            }
+        } catch (error) {
+
+        }
+    }
+
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1)
     const [category, setCategoryValue] = useState(0)
@@ -53,13 +109,17 @@ export default function ProductList() {
     return (
         <>
             <div className=" relative h-full justify-items-center ">
-
                 <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
+                <div className='absolute top-3.5 left-2'>
+                    <Fab size="small" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
+                        <ShoppingCartIcon />
+                    </Fab>
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                     {products?.data?.data?.map((value, index) => {
                         return (
                             <div className="p-3" key={`p${index}`}>
-                                <ProductCard data={value} />
+                                <ProductCard data={value} func={onTransaction} />
                             </div>
                         )
                     })}
@@ -68,6 +128,15 @@ export default function ProductList() {
                     <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
                 </div>
             </div>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Edit Product</DialogTitle>
+                <DialogContent>
+                    <Cart data={sales}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

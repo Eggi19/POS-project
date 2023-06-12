@@ -8,7 +8,6 @@ import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
 import SignUp from './Pages/SignUp/signUp';
 
-
 function App() {
   return (
     <>
