@@ -29,8 +29,9 @@ module.exports = {
 
     createSale: async (req, res) => {
         try {
-            const {invoiceId, productId, quantity, subTotal} = req.body
-            const result = await Sale.create({invoiceId, productId, quantity, subTotal})
+            const {data} = req.body
+
+            const result = await Sale.bulkCreate(data)
 
             if(result){
                 res.send({
