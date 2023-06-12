@@ -54,6 +54,7 @@ export default function Cart(props) {
                 toast.success('Transaction Success!')
                 setTransactionData([])
                 setTotalTransaction(0)
+                props.func([])
             }
         } catch (error) {
 
@@ -106,6 +107,9 @@ export default function Cart(props) {
                             </MenuItem>
                             <MenuItem value='Credit' onClick={() => setPaymentType('credit')}>
                                 Credit
+                            </MenuItem>
+                            <MenuItem value='Cash' onClick={() => setPaymentType('cash')}>
+                                Cash
                             </MenuItem>
                         </TextField>
                     </Grid>

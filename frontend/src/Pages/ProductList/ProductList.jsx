@@ -14,6 +14,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Cart from '../../Components/Cart/cart';
 
 export default function ProductList() {
+    const [sales, setSales] = useState([])
+
     //Dialog
     const [open, setOpen] = React.useState(false);
 
@@ -26,7 +28,6 @@ export default function ProductList() {
     };
 
     //transaction
-    const [sales, setSales] = useState([])
     const onTransaction = (data) => {
         try {
             let validation = false
@@ -131,7 +132,7 @@ export default function ProductList() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Order Summary</DialogTitle>
                 <DialogContent>
-                    <Cart data={sales}/>
+                    <Cart data={sales} func={setSales}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
