@@ -99,13 +99,11 @@ export default function FilterBar(props) {
                                 'aria-labelledby': 'sort-button',
                             }}
                         >
-
                             <MenuItem onClick={() => handleCloseSort(null, 0)}>none</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("ASC", 1)}>name a to z </MenuItem>
                             <MenuItem onClick={() => handleCloseSort("DESC", 1)}>name z to a</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("ASC", 2)}>price low to high</MenuItem>
                             <MenuItem onClick={() => handleCloseSort("DESC", 2)}>price high to low</MenuItem>
-
                         </Menu>
                     </div>
                 </div>

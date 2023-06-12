@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRef } from 'react';
 import { registerUser } from '../../API/user';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
     return (
@@ -34,6 +35,11 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+    const navigate = useNavigate()
+    const localRole = localStorage.getItem('role')
+
+    if (localRole !== 'admin') { navigate('/products') }
+
     const _username = useRef()
     const _password = useRef()
     const _confirmPassword = useRef()

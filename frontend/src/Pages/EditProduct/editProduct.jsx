@@ -20,8 +20,14 @@ import EditComponent from './EditComponent/editComponent';
 import { useState } from 'react';
 import { deleteProduct, getAllProductsWithCategory } from '../../API/productAPI';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function EditProduct() {
+    const navigate = useNavigate()
+    const role = localStorage.getItem('role')
+
+    if (role !== 'admin') { navigate('/products') }
+
     const [currentDataProduct, setCurrentDataProduct] = useState([])
     //Dialog
     const [open, setOpen] = React.useState(false);
@@ -40,7 +46,7 @@ export default function EditProduct() {
     const getDataProducts = async () => {
         try {
             const result = await getAllProductsWithCategory()
-            setDataProducts(result.data.data)
+            setDataProducts(result?.data?.data)
         } catch (error) {
 
         }
@@ -73,7 +79,7 @@ export default function EditProduct() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {dataProducts.map((value) => (
+                        {dataProducts?.map((value) => (
                             <TableRow
                                 key={value.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -108,7 +114,7 @@ export default function EditProduct() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Product</DialogTitle>
                 <DialogContent>
-                    <EditComponent data={currentDataProduct}/>
+                    <EditComponent data={currentDataProduct} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
