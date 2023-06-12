@@ -6,12 +6,15 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { postInvoice, postSale } from '../../API/transactionAPI';
 
 export default function Cart(props) {
     const [totalTransaction, setTotalTransaction] = useState(0)
     const [paymentType, setPaymentType] = useState('')
+    const userId = localStorage.getItem('id')
 
     const totalPrice = () => {
         try {
@@ -20,6 +23,28 @@ export default function Cart(props) {
                 result += value.price * value.qty
             })
             setTotalTransaction(result)
+        } catch (error) {
+
+        }
+    }
+
+    const createTransaction = async () => {
+        try {
+            const invoiceData = {
+                userId: userId,
+                total: totalTransaction,
+                paymentType: paymentType
+            }
+            const invoiceResult = await postInvoice(invoiceData)
+
+            const getInvoiceId = invoiceResult.data?.data?.id
+            const saleData = props.data.map(({id, qty, price}) => ({
+                invoiceId: getInvoiceId,
+                productId: id,
+                quantity: qty,
+                subTotal: qty*price
+            }))
+            await postSale(saleData)
         } catch (error) {
 
         }
@@ -72,6 +97,9 @@ export default function Cart(props) {
                                 Credit
                             </MenuItem>
                         </TextField>
+                    </Grid>
+                    <Grid item xs={6} fullWidth>
+                        <Button variant="contained" onClick={createTransaction}>Create Transaction</Button>
                     </Grid>
                 </Grid>
             </React.Fragment>

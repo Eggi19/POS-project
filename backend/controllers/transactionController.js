@@ -30,7 +30,6 @@ module.exports = {
     createSale: async (req, res) => {
         try {
             const {data} = req.body
-
             const result = await Sale.bulkCreate(data)
 
             if(result){
