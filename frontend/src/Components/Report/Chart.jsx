@@ -34,9 +34,10 @@ export default function Chart() {
 
   const getData = async (startDate, endDate) => {
     try {
+      console.log('dates', startDate, endDate);
       const result = await getReport(startDate, endDate)
       setDataArray(result?.data?.data)
-      console.log(result.data.data)
+      console.log("result", result)
 
     } catch (error) {
 
@@ -47,16 +48,19 @@ export default function Chart() {
     return { date, price };
   }
   const data1 = () => {
-    console.log(dataArray)
+    console.log("dataArray",dataArray)
     graphData = dataArray?.map((value, index) => {
       // console.log('mpping', value)
+      const dateFormat = value.createdAt.toString().split('T')[0]
+      console.log('datefomat', dateFormat);
       return (
-        createData1(value.createdAt, value.total)
+        createData1(dateFormat, value.total)
         )
     })
   }
   React.useEffect(() => {
     data1()
+    
   }, [dataArray])
   return (
     <React.Fragment>
@@ -86,7 +90,7 @@ export default function Chart() {
               className=' bg-white'
 
               onChange={(event) => {
-                setEndDate(event.target.value);
+                setEndDate(`${event.target.value}`);
               }} />
           </div>
           <div className='mx-2'>

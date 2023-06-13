@@ -6,27 +6,30 @@ module.exports = {
     getReport: async (req, res) => {
         try {
             const { startDate, endDate } = req.query
+            console.log('date', startDate, endDate);
             const invoice = await InvoiceDB.findAll({
                 where: {
                     createdAt: {
-                        [Op.between]: [startDate, endDate]
+                        [Op.between]: [new Date(startDate), new Date(endDate)]
                     }
-                }
+                },
+                group: ['createdAt']
             })
+            console.log('invoice', invoice);
 
             let start = new Date(startDate)
             let end = new Date(endDate)
 
             let currentDate = start
-            while (currentDate <= end) {
-                console.log(currentDate)
-                if (currentDate.split('T07'[0]) === start.split('T07', [0])) {
+            // while (currentDate <= end) {
+            //     console.log(currentDate)
+            //     if (currentDate.split('T'[0]) === start.split('T', [0])) {
 
-                }
+            //     }
 
-                //update date 
-                currentDate.setDate(currentDate.getDate() + 1)
-            }
+            //     //update date 
+            //     currentDate.setDate(currentDate.getDate() + 1)
+            // }
 
 
             // console.log('date minus', endDate - startDate)
