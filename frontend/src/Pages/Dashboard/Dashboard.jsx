@@ -9,6 +9,9 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import CategoryIcon from '@mui/icons-material/Category';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -21,6 +24,21 @@ import { mainListItems, secondaryListItems } from '../../Components/Dashboard/li
 import Chart from '../../Components/Report/Chart';
 import Deposits from '../../Components/Report/Deposits';
 import Orders from '../../Components/Report/Orders';
+import CreateProduct from '../CreateProduct/createProduct';
+import EditProduct from '../EditProduct/editProduct';
+import CategoryPage from '../CategoryList/CategoryList';
+import SignUp from '../SignUp/signUp';
+import { useState } from 'react';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 
 function Copyright(props) {
@@ -86,6 +104,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const [content, setContent] = useState(<CreateProduct />)
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -144,9 +163,39 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <React.Fragment>
+              <ListItemButton onClick={() => setContent(<CreateProduct />)}>
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Product" />
+              </ListItemButton>
+              <ListItemButton onClick={() => setContent(<EditProduct />)}>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                <ListItemText primary="Edit Product" />
+              </ListItemButton>
+              <ListItemButton onClick={() => setContent(<CategoryPage />)}>
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Edit Category" />
+              </ListItemButton>
+              <ListItemButton onClick={() => setContent(<SignUp />)}>
+                <ListItemIcon>
+                <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add New User" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Report" />
+              </ListItemButton>
+            </React.Fragment>
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -161,25 +210,7 @@ export default function Dashboard() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 500,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
+          {content}
         </Box>
       </Box>
     </ThemeProvider>
