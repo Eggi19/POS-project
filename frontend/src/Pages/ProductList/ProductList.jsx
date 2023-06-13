@@ -136,7 +136,7 @@ export default function ProductList() {
                     <div className="p-5">
                         <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
                     </div>
-                    <div className='sticky bottom-12 start-full w-12'>
+                    <div className='sticky mr-5 bottom-12 start-full w-12'>
                         <Badge badgeContent={sales.length} color="primary">
                             <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
                                 <ShoppingCartIcon />
