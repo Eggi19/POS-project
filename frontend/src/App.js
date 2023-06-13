@@ -7,6 +7,7 @@ import CategoryPage from './Pages/CategoryList/CategoryList';
 import CreateProduct from './Pages/CreateProduct/createProduct';
 import EditProduct from './Pages/EditProduct/editProduct';
 import SignUp from './Pages/SignUp/signUp';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
             <SignInSide />
           </>
         } />
-        <Route path='/newProduct' element={
+        {/* <Route path='/newProduct' element={
           <CreateProduct />
         } />
         <Route path='/editProduct' element={
@@ -31,9 +32,12 @@ function App() {
         } />
         <Route path='/categories' element={
           <CategoryPage />
-        } />
-        <Route path='/register' element={
+        } /> */}
+        {/* <Route path='/register' element={
           <SignUp />
+        } /> */}
+        <Route path='/dashboard' element={
+          <Dashboard />
         } />
       </Routes>
     </>
