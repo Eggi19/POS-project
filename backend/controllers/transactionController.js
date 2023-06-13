@@ -1,5 +1,5 @@
 const db = require('../models')
-const Invoice = db.Invoice
+const Invoice = db.invoice
 const Sale = db.Sale
 
 module.exports = {

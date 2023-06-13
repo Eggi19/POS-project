@@ -16,7 +16,6 @@ export default function Cart(props) {
     const [totalTransaction, setTotalTransaction] = useState(0)
     const [paymentType, setPaymentType] = useState('')
     const [transactionData, setTransactionData] = useState(props.data)
-    const userId = localStorage.getItem('id')
 
     const totalPrice = () => {
         try {
@@ -32,6 +31,7 @@ export default function Cart(props) {
 
     const createTransaction = async () => {
         try {
+            const userId = Number(localStorage.getItem('id'))
             const invoiceData = {
                 userId: userId,
                 total: totalTransaction,
