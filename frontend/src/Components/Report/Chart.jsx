@@ -54,7 +54,7 @@ export default function Chart() {
       const dateFormat = value.createdAt.toString().split('T')[0]
       console.log('datefomat', dateFormat);
       return (
-        createData1(dateFormat, value.total)
+        createData1(dateFormat, value.sum_total)
         )
     })
   }

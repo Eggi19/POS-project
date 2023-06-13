@@ -1,6 +1,8 @@
 const db = require("./../models")
 const InvoiceDB = db.invoice
-const { Op } = require("sequelize");
+const { Op, fn, Sequelize } = require("sequelize");
+
+
 
 module.exports = {
     getReport: async (req, res) => {
@@ -8,12 +10,19 @@ module.exports = {
             const { startDate, endDate } = req.query
             console.log('date', startDate, endDate);
             const invoice = await InvoiceDB.findAll({
+                order: [
+                    ['createdAt', 'ASC']],
+                attributes: [
+                    'createdAt',
+                    [Sequelize.fn('SUM', Sequelize.col('total')), 'sum_total'],
+                ],
                 where: {
                     createdAt: {
                         [Op.between]: [new Date(startDate), new Date(endDate)]
                     }
                 },
                 group: ['createdAt']
+
             })
             console.log('invoice', invoice);
 
@@ -23,7 +32,8 @@ module.exports = {
             let currentDate = start
             // while (currentDate <= end) {
             //     console.log(currentDate)
-            //     if (currentDate.split('T'[0]) === start.split('T', [0])) {
+            //     for( let i =0; i < invoice.data.length; i++ ) {
+            //     if (currentDate.toString().split('T'[0]) === start.split('T', [0])) {
 
             //     }
 
