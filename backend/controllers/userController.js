@@ -37,5 +37,27 @@ module.exports = {
                 data: null
             })
         }
+    },
+
+    getUserData: async (req, res) => {
+        try {
+            const getData = await User.findAll()
+
+            if(getData){
+                res.send({
+                    success: true,
+                    message: "get user data success",
+                    data: getData
+                })
+            }else{
+                throw {message: "get user data failed"}
+            }
+        } catch (error) {
+            res.send({
+                success: false,
+                message: error.message,
+                data: null
+            })
+        }
     }
 }

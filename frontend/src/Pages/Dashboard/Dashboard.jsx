@@ -32,6 +32,8 @@ import ProductList from '../ProductList/ProductList';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
+import UserList from '../UserList/userList';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 
 function Copyright(props) {
@@ -183,7 +185,7 @@ export default function Dashboard() {
               </ListItemButton>
               <ListItemButton onClick={() => setContent(<SignUp />)}>
                 <ListItemIcon>
-                  <PeopleIcon />
+                  <PersonAddAlt1Icon />
                 </ListItemIcon>
                 <ListItemText primary="Add New User" />
               </ListItemButton>
@@ -198,6 +200,12 @@ export default function Dashboard() {
                   <ShoppingCartIcon />
                 </ListItemIcon>
                 <ListItemText primary="Order" />
+              </ListItemButton>
+              <ListItemButton onClick={() => setContent(<UserList />)}>
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="User List" />
               </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

@@ -117,8 +117,7 @@ export default function EditProduct() {
                                 </TableCell>
                                 <TableCell align="left">{value.name}</TableCell>
                                 <TableCell align="left">{value.Category?.name}</TableCell>
-                                {/* <TableCell align="left">{value.category}</TableCell> */}
-                                <TableCell align="left">{value.price}</TableCell>
+                                <TableCell align="left">Rp {value.price.toLocaleString()}</TableCell>
                                 {
                                     value.status ?
                                         <TableCell align="left">Available</TableCell>
