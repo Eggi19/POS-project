@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Fab from '@mui/material/Fab';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Cart from '../../Components/Cart/cart';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function ProductList() {
     const [sales, setSales] = useState([])
@@ -46,7 +47,7 @@ export default function ProductList() {
                     console.log(newData);
                     newData.push(data)
                     setSales(newData)
-                } else if(validation){
+                } else if (validation) {
                     const newData = [...sales]
                     const curQty = newData[idx].qty
                     newData[idx].qty = curQty + 1
@@ -57,6 +58,7 @@ export default function ProductList() {
                 newData.push(data)
                 setSales(newData)
             }
+            toast.success('Product Added!')
         } catch (error) {
 
         }
@@ -109,13 +111,12 @@ export default function ProductList() {
 
     return (
         <>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <div className=" relative h-full justify-items-center ">
                 <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
-                <div className='absolute top-3.5 left-2'>
-                    <Fab size="small" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
-                        <ShoppingCartIcon />
-                    </Fab>
-                </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
                     {products?.data?.data?.map((value, index) => {
                         return (
@@ -128,11 +129,16 @@ export default function ProductList() {
                 <div className="p-5">
                     <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
                 </div>
+                <div className='sticky bottom-12 start-full w-12'>
+                    <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
+                        <ShoppingCartIcon />
+                    </Fab>
+                </div>
             </div>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Order Summary</DialogTitle>
                 <DialogContent>
-                    <Cart data={sales} func={setSales}/>
+                    <Cart data={sales} func={setSales} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
