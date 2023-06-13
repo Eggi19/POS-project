@@ -27,6 +27,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import Chart from '../../Components/Report/Chart';
+import ProductList from '../ProductList/ProductList';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 function Copyright(props) {
@@ -92,11 +97,22 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const navigate = useNavigate()
+  const role = localStorage.getItem('role')
+
+  if (role !== 'admin') { navigate('/products') }
+
   const [content, setContent] = useState(<CreateProduct />)
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const logOut = () => {
+    localStorage.removeItem('id')
+    localStorage.removeItem('role')
+    navigate('/')
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -129,11 +145,6 @@ export default function Dashboard() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -172,18 +183,30 @@ export default function Dashboard() {
               </ListItemButton>
               <ListItemButton onClick={() => setContent(<SignUp />)}>
                 <ListItemIcon>
-                <PeopleIcon />
+                  <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Add New User" />
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton onClick={() => setContent(<Chart />)}>
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Report" />
               </ListItemButton>
+              <ListItemButton onClick={() => setContent(<ProductList />)}>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order" />
+              </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />
+            <ListItemButton onClick={() => logOut()}>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Order" />
+            </ListItemButton>
           </List>
         </Drawer>
         <Box
@@ -194,6 +217,8 @@ export default function Dashboard() {
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
             flexGrow: 1,
+            pt: 10,
+            px: 5,
             height: '100vh',
             overflow: 'auto',
           }}

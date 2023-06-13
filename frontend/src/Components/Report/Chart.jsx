@@ -6,6 +6,8 @@ import Title from './Title';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { getReport } from '../../API/reportAPI';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -48,105 +50,120 @@ export default function Chart() {
     return { date, price };
   }
   const data1 = () => {
-    console.log("dataArray",dataArray)
+    console.log("dataArray", dataArray)
     graphData = dataArray?.map((value, index) => {
       // console.log('mpping', value)
       const dateFormat = value.createdAt.toString().split('T')[0]
       console.log('datefomat', dateFormat);
       return (
         createData1(dateFormat, value.sum_total)
-        )
+      )
     })
   }
   React.useEffect(() => {
     data1()
-    
-  }, [dataArray])
+
+  }, [dataArray, graphData])
   return (
+
     <React.Fragment>
-      <Title>Sales Graph</Title>
-      {/* <DatePickerValue /> */}
-      <div className='flex '>
-        <div className='flex items-center'>
-
-          <div className='mx-2'>
-            <TextField
-              id="outlined-basic"
-              label="StartDate"
-              variant="outlined"
-              placeholder="YYYY-MM-DD"
-              className=' bg-white'
-
-              onChange={(event) => {
-                setStartDate(event.target.value);
-              }} />
-          </div>
-          <div className='mx-2'>
-            <TextField
-              id="outlined-basic"
-              label="EndDate"
-              variant="outlined"
-              placeholder="YYYY-MM-DD"
-              className=' bg-white'
-
-              onChange={(event) => {
-                setEndDate(`${event.target.value}`);
-              }} />
-          </div>
-          <div className='mx-2'>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                getData(startDate, endDate);
-              }}
-            >
-              GET DATA
-            </Button>
-          </div>
-        </div>
-      </div>
-      <ResponsiveContainer>
-        <LineChart
-          data={graphData}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 0,
-            left: 24,
-          }}
-        >
-          <XAxis
-            dataKey="date"
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
-          />
-          <YAxis
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
+      {/* Chart */}
+        <Grid item xs={12} md={8} lg={9}>
+          <Paper
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 500,
+            }}
           >
-            <Label
-              angle={270}
-              position="left"
-              style={{
-                textAnchor: 'middle',
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
-              }}
-            >
-              Sales (Rp)
-            </Label>
-          </YAxis>
-          <Line
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="price"
-            stroke={theme.palette.primary.main}
-            dot={false}
-          />
-        </LineChart>
 
-      </ResponsiveContainer>
-    </React.Fragment>
+            {/* <div className='pt-20 px-10'> */}
+            <Title Title > Sales Graph</Title>
+            {/* <DatePickerValue /> */}
+            <div className='flex '>
+              <div className='flex items-center'>
+
+                <div className='mx-2'>
+                  <TextField
+                    id="outlined-basic"
+                    label="StartDate"
+                    variant="outlined"
+                    placeholder="YYYY-MM-DD"
+                    className=' bg-white'
+
+                    onChange={(event) => {
+                      setStartDate(event.target.value);
+                    }} />
+                </div>
+                <div className='mx-2'>
+                  <TextField
+                    id="outlined-basic"
+                    label="EndDate"
+                    variant="outlined"
+                    placeholder="YYYY-MM-DD"
+                    className=' bg-white'
+
+                    onChange={(event) => {
+                      setEndDate(`${event.target.value}`);
+                    }} />
+                </div>
+                <div className='mx-2'>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      getData(startDate, endDate);
+                    }}
+                  >
+                    GET DATA
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <ResponsiveContainer>
+              <LineChart
+                data={graphData}
+                margin={{
+                  top: 16,
+                  right: 16,
+                  bottom: 0,
+                  left: 24,
+                }}
+              >
+                <XAxis
+                  dataKey="date"
+                  stroke={theme.palette.text.secondary}
+                  style={theme.typography.body2}
+                />
+                <YAxis
+                  stroke={theme.palette.text.secondary}
+                  style={theme.typography.body2}
+                >
+                  <Label
+                    angle={270}
+                    position="left"
+                    style={{
+                      textAnchor: 'middle',
+                      fill: theme.palette.text.primary,
+                      ...theme.typography.body1,
+                    }}
+                  >
+                    Sales (Rp)
+                  </Label>
+                </YAxis>
+                <Line
+                  isAnimationActive={false}
+                  type="monotone"
+                  dataKey="price"
+                  stroke={theme.palette.primary.main}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+            {/* </div> */}
+          </Paper>
+        </Grid>
+    </React.Fragment >
   );
 }

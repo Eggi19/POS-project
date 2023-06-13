@@ -48,7 +48,8 @@ export default function SignInSide() {
     } else {
       const response = await login(userName, password)
       console.log("response FE", response?.data)
-      localStorage.setItem('role',response.data?.data?.role)
+      localStorage.setItem('role', response.data?.data?.role)
+      localStorage.setItem('id', response.data?.data?.id)
       // process.exit()
       if (response?.data?.success === false) {
         toast.error(response?.data?.message)
@@ -75,7 +76,7 @@ export default function SignInSide() {
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'widht=100 height=100',
+            backgroundSize: 'w-100',
             backgroundPosition: 'center',
           }}
         />

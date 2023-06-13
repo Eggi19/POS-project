@@ -24,7 +24,7 @@ function App() {
             <SignInSide />
           </>
         } />
-        <Route path='/newProduct' element={
+        {/* <Route path='/newProduct' element={
           <CreateProduct />
         } />
         <Route path='/editProduct' element={
@@ -32,10 +32,10 @@ function App() {
         } />
         <Route path='/categories' element={
           <CategoryPage />
-        } />
-        <Route path='/register' element={
+        } /> */}
+        {/* <Route path='/register' element={
           <SignUp />
-        } />
+        } /> */}
         <Route path='/dashboard' element={
           <Dashboard />
         } />
