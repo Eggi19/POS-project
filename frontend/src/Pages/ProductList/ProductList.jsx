@@ -14,6 +14,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Cart from '../../Components/Cart/cart';
 import toast, { Toaster } from 'react-hot-toast';
 import { ResponsiveContainer } from 'recharts';
+import Badge from '@mui/material/Badge';
 
 
 export default function ProductList() {
@@ -136,9 +137,11 @@ export default function ProductList() {
                         <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
                     </div>
                     <div className='sticky bottom-12 start-full w-12'>
-                        <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
-                            <ShoppingCartIcon />
-                        </Fab>
+                        <Badge badgeContent={sales.length} color="primary">
+                            <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
+                                <ShoppingCartIcon />
+                            </Fab>
+                        </Badge>
                     </div>
                 </div>
                 <Dialog open={open} onClose={handleClose}>
