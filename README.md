@@ -3,6 +3,12 @@
 POS-Project
 ## Cloning 
 make sure you have git instaled in your PC or laptop. to check execute this code in your terminal
+
+to install git go to git bash via this link https://git-scm.com/downloads and download the latest version based on your PC OS
+
+now clone the repository by follwoing the steps below:
+1. open your code editor (VS code) and open the terminal in your VS Code 
+2. make sure the terminal directory is correct
 ```bash
 pip install foobar
 ```
