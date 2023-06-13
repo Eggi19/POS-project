@@ -76,102 +76,104 @@ export default function SignUp() {
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <>
             <Toaster
                 position="top-center"
                 reverseOrder={false}
             />
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="username"
-                                    required
-                                    fullWidth
-                                    id="username"
-                                    label="Username"
-                                    autoFocus
-                                    inputRef={_username}
-                                />
+            <ThemeProvider theme={defaultTheme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="username"
+                                        required
+                                        fullWidth
+                                        id="username"
+                                        label="Username"
+                                        autoFocus
+                                        inputRef={_username}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="Role"
+                                        select
+                                        name="Role"
+                                        label="Role"
+                                        helperText="Please select user role"
+                                    >
+                                        <MenuItem value='Available' onClick={() => setRole('admin')}>
+                                            Admin
+                                        </MenuItem>
+                                        <MenuItem value='Unavailable' onClick={() => setRole('cashier')}>
+                                            Cashier
+                                        </MenuItem>
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="new-password"
+                                        inputRef={_password}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password confirmation"
+                                        label="Password Confirmation"
+                                        type="password"
+                                        id="confirm-password"
+                                        autoComplete="new-password"
+                                        inputRef={_confirmPassword}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="Role"
-                                    select
-                                    name="Role"
-                                    label="Role"
-                                    helperText="Please select user role"
-                                >
-                                    <MenuItem value='Available' onClick={() => setRole('admin')}>
-                                        Admin
-                                    </MenuItem>
-                                    <MenuItem value='Unavailable' onClick={() => setRole('cashier')}>
-                                        Cashier
-                                    </MenuItem>
-                                </TextField>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item>
+                                    <Link href="#" variant="body2">
+                                        Already have an account? Sign in
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    inputRef={_password}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password confirmation"
-                                    label="Password Confirmation"
-                                    type="password"
-                                    id="confirm-password"
-                                    autoComplete="new-password"
-                                    inputRef={_confirmPassword}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        </Box>
                     </Box>
-                </Box>
-                <Copyright sx={{ mt: 5 }} />
-            </Container>
-        </ThemeProvider>
+                    <Copyright sx={{ mt: 5 }} />
+                </Container>
+            </ThemeProvider>
+        </>
     );
 }
