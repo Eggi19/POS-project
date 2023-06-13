@@ -9,12 +9,14 @@ export default function PaginationControlled(props) {
     //     setPage(value);
     //     props.page(value)
     // };
+    
 
     return (
         <>
             <div className='flex justify-center'>
                 <div>
                     <Stack spacing={1}>
+                        {console.log('totalpage', props?.totalpage)}
                         <Pagination count={props.totalPage} variant='outlined' color='primary' onChange={props.handlePagination} />
                     </Stack>
                 </div>

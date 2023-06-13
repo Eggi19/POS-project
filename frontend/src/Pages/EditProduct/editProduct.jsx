@@ -33,13 +33,13 @@ export default function EditProduct() {
     const [nameSort, setNameSort] = useState(0)
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1)
-
-
-    if (role !== 'admin') { navigate('/products') }
-
     const [currentDataProduct, setCurrentDataProduct] = useState([])
-    //Dialog
     const [open, setOpen] = React.useState(false);
+    const [dataProducts, setDataProducts] = useState([])
+    const pageLimit = 10
+
+    // CHECK ROLE
+    if (role !== 'admin') { navigate('/products') }
 
     const handleClickOpen = (data) => {
         setCurrentDataProduct(data)
@@ -50,12 +50,10 @@ export default function EditProduct() {
         setOpen(false);
     };
 
-    const [dataProducts, setDataProducts] = useState([])
-
     const getDataProducts = async () => {
         try {
             // const result = await getAllProductsWithCategory()
-            const result = await getAllProducts(page, category, search, sort, nameSort)
+            const result = await getAllProducts(page, category, search, sort, nameSort, pageLimit)
             console.log('result', result.data)
             setDataProducts(result?.data)
         } catch (error) {
@@ -143,6 +141,7 @@ export default function EditProduct() {
                 </Table>
             </TableContainer>
             <div className="p-5">
+                {console.log(dataProducts.page, 'page prod')}
                 <PaginationControlled totalPage={dataProducts?.page} handlePagination={setPagination} />
             </div>
             <Dialog open={open} onClose={handleClose}>

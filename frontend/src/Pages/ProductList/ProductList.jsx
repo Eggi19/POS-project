@@ -46,7 +46,7 @@ export default function ProductList() {
                     console.log(newData);
                     newData.push(data)
                     setSales(newData)
-                } else if(validation){
+                } else if (validation) {
                     const newData = [...sales]
                     const curQty = newData[idx].qty
                     newData[idx].qty = curQty + 1
@@ -68,12 +68,13 @@ export default function ProductList() {
     const [search, setSearchValue] = useState("")
     const [sort, setSortValue] = useState(null)
     const [nameSort, setNameSort] = useState(0)
+    const pageLimit = 10
 
 
     const data = async () => {
         try {
             console.log('page', page)
-            const response = await getAllProducts(page, category, search, sort, nameSort)
+            const response = await getAllProducts(page, category, search, sort, nameSort, pageLimit)
             // const catResponse = await getAllCategory()
             console.log("Respnse", response)
             setProducts(response)
@@ -132,7 +133,7 @@ export default function ProductList() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Order Summary</DialogTitle>
                 <DialogContent>
-                    <Cart data={sales} func={setSales}/>
+                    <Cart data={sales} func={setSales} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
