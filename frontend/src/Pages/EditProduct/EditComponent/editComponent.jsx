@@ -110,8 +110,28 @@ export default function EditComponent(props) {
         }
     }
 
+    const currentCategoryId = () => {
+        try {
+            const currCategoryId = props.data?.Category?.id
+            setCategoryId(currCategoryId)
+        } catch (error) {
+            
+        }
+    }
+
+    const currentStatus = () => {
+        try {
+            const currStatus = props.data?.status
+            setStatus(currStatus)
+        } catch (error) {
+            
+        }
+    }
+
     useEffect(() => {
         getCategories()
+        currentCategoryId()
+        currentStatus()
     }, [])
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -156,7 +176,7 @@ export default function EditComponent(props) {
                                     select
                                     name="Category"
                                     label="Category"
-                                    defaultValue=''
+                                    defaultValue={props.data?.Category?.name}
                                     helperText="Please select product category"
                                 >
                                     {productCategories.map((value) => (
@@ -199,7 +219,7 @@ export default function EditComponent(props) {
                                     select
                                     name="Stock Status"
                                     label="Stock Status"
-                                    defaultValue=''
+                                    defaultValue={props.data?.status? "Available" : "Unavailable"}
                                     helperText="Please select product status"
                                 >
                                     <MenuItem value='Available' onClick={() => setStatus(true)}>
