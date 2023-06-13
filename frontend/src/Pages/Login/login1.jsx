@@ -43,6 +43,18 @@ export default function SignInSide() {
     const userName = data.get('username')
     const password = data.get('password')
 
+
+    if (localStorage.getItem('role')) {
+      if (localStorage.getItem('role') === 'admin') {
+        navigate('/dashboard')
+
+      } else {
+        navigate('/products')
+
+      }
+
+    }
+
     if (!userName || !password) {
       toast.error('data incomplete')
     } else {
@@ -55,7 +67,7 @@ export default function SignInSide() {
         toast.error(response?.data?.message)
       } else if (response?.data?.success === true) {
         setTimeout(() => {
-          response.data?.data?.role === 'admin' ? navigate('/editproduct') : navigate('/products')
+          response.data?.data?.role === 'admin' ? navigate('/dashboard') : navigate('/products')
         }, 2000);
         toast.success(response?.data?.message)
       }

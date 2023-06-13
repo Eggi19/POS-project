@@ -205,7 +205,7 @@ export default function Dashboard() {
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Order" />
+              <ListItemText primary="Log Out" />
             </ListItemButton>
           </List>
         </Drawer>
