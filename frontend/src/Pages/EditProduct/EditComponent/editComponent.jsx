@@ -92,6 +92,7 @@ export default function EditComponent(props) {
 
             if (response.data.success) {
                 toast.success('Successfully Edit!')
+                props.getData()
             } else {
                 throw {message: 'Edit Product is failed!'}
             }

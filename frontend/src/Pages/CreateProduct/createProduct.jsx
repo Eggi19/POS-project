@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PropTypes from 'prop-types';
 import MenuItem from '@mui/material/MenuItem';
+import toast, { Toaster } from 'react-hot-toast';
 import { NumericFormat } from 'react-number-format';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRef } from 'react';
@@ -94,9 +95,16 @@ export default function CreateProduct() {
                 price: _price,
                 status: status
             })
-            console.log(response);
+            if (response.data?.success) {
+                toast.success('Create New Product Success!')
+                productName.current.value = ''
+                imageURL.current.value = ''
+                price.current.value = 0
+            } else {
+                throw { message: "Create New Product Failed!" }
+            }
         } catch (error) {
-
+            toast.error(error.message)
         }
     }
 
@@ -114,6 +122,10 @@ export default function CreateProduct() {
     }, [])
     return (
         <ThemeProvider theme={defaultTheme}>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

@@ -114,7 +114,7 @@ export default function EditProduct() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Product</DialogTitle>
                 <DialogContent>
-                    <EditComponent data={currentDataProduct} />
+                    <EditComponent data={currentDataProduct} getData={getDataProducts}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
