@@ -8,3 +8,7 @@ export function registerUser(data) {
         role: data.role
     })
 }
+
+export function getUser() {
+    return axios.get(`${process.env.REACT_APP_API_URL}/users/`)
+}
