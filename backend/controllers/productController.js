@@ -15,7 +15,7 @@ module.exports = {
             let orderType = ''
             const response = await ProductsDB.count()
             let totalPage = Math.ceil(response / limit)
-            console.log("total", nameSort);
+            console.log("total", totalPage);
 
             if (nameSort === '1') {
                 orderType = 'name'
@@ -45,6 +45,7 @@ module.exports = {
                 order = [['id', 'ASC']]
             }
             result = await ProductsDB.findAll({
+                include: db.Category,
                 limit: limit, offset: offset,
                 where: where,
                 order: order
