@@ -33,6 +33,14 @@ const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const navigate = useNavigate()
+  if (localStorage.getItem('role')) {
+    if (localStorage.getItem('role') === 'admin') {
+      navigate('/dashboard')
+    } else {
+      navigate('/products')
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,18 +51,6 @@ export default function SignInSide() {
     const userName = data.get('username')
     const password = data.get('password')
 
-
-    if (localStorage.getItem('role')) {
-      if (localStorage.getItem('role') === 'admin') {
-        navigate('/dashboard')
-
-      } else {
-        navigate('/products')
-
-      }
-
-    }
-
     if (!userName || !password) {
       toast.error('data incomplete')
     } else {
@@ -62,10 +58,10 @@ export default function SignInSide() {
       console.log("response FE", response?.data)
       localStorage.setItem('role', response.data?.data?.role)
       localStorage.setItem('id', response.data?.data?.id)
-      // process.exit()
       if (response?.data?.success === false) {
         toast.error(response?.data?.message)
       } else if (response?.data?.success === true) {
+        localStorage.setItem('token', response?.data?.token)
         setTimeout(() => {
           response.data?.data?.role === 'admin' ? navigate('/dashboard') : navigate('/products')
         }, 2000);
