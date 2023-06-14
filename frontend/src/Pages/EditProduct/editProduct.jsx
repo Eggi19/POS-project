@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditComponent from './EditComponent/editComponent';
 import { useState } from 'react';
@@ -37,6 +38,21 @@ export default function EditProduct() {
     const [open, setOpen] = React.useState(false);
     const [dataProducts, setDataProducts] = useState([])
     const pageLimit = 10
+    const [productId, setProductId] = useState(0)
+    const [openAlert, setOpenAlert] = useState(false);
+
+    const handleClickOpenAlert = (id) => {
+        setProductId(id)
+        setOpenAlert(true);
+    };
+
+    const handleCloseAlert = async (confirmDelete) => {
+        if (confirmDelete) {
+            await deleteProduct(productId)
+            getDataProducts()
+        }
+        setOpenAlert(false);
+    };
 
     // CHECK ROLE
     if (role !== 'admin') { navigate('/products') }
@@ -61,14 +77,6 @@ export default function EditProduct() {
         }
     }
 
-    const onDeleteProduct = async (productId) => {
-        try {
-            await deleteProduct(productId)
-            getDataProducts()
-        } catch (error) {
-
-        }
-    }
     const setPagination = (event, value) => {
         setPage(value)
         // console.log('page1', value)
@@ -129,7 +137,7 @@ export default function EditProduct() {
                                         <Fab size="small" color="secondary" aria-label="edit" onClick={() => handleClickOpen(value)} >
                                             <EditIcon />
                                         </Fab>
-                                        <IconButton aria-label="delete" size="small" onClick={() => onDeleteProduct(value.id)} >
+                                        <IconButton aria-label="delete" size="small" onClick={() => handleClickOpenAlert(value.id)} >
                                             <DeleteIcon />
                                         </IconButton>
                                     </Stack>
@@ -150,6 +158,27 @@ export default function EditProduct() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                open={openAlert}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure want to delete product?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Your product will be removed permanently from database. Are you sure want to delete this product?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => handleCloseAlert(false)}>No</Button>
+                    <Button onClick={() => handleCloseAlert(true)} autoFocus>
+                        Yes
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>
