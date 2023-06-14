@@ -102,7 +102,14 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const role = localStorage.getItem('role')
 
-  if (role !== 'admin') { navigate('/products') }
+  const loginCheck = () => {
+    if (!role) {
+      navigate('/')
+    }
+    else if (role !== 'admin') {
+      navigate('/products')
+    }
+  }
 
   const [content, setContent] = useState(<CreateProduct />)
   const [open, setOpen] = React.useState(true);
@@ -116,6 +123,9 @@ export default function Dashboard() {
     navigate('/')
   }
 
+  React.useEffect(() => {
+    loginCheck()
+  },[])
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
