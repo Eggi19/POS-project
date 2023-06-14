@@ -102,7 +102,7 @@ export default function CreateProduct() {
                     price: _price,
                     status: stockStatus
                 })
-
+console.log('tset');
                 if (response.data?.success) {
                     toast.success('Create New Product Success!')
                     productName.current.value = ''
