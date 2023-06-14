@@ -54,7 +54,7 @@ export default function OrderList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {orderList.map((value) => (
+                        {orderList?.map((value) => (
                             <TableRow
                                 key={value.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

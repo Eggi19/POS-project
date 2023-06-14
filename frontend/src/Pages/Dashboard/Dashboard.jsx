@@ -35,6 +35,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import UserList from '../UserList/userList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import OrderList from '../OrderList/orderList';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 
 function Copyright(props) {
@@ -220,7 +221,7 @@ export default function Dashboard() {
               </ListItemButton>
               <ListItemButton onClick={() => setContent(<OrderList />)}>
                 <ListItemIcon>
-                  <AssignmentIcon />
+                  <FormatListBulletedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Order List" />
               </ListItemButton>
