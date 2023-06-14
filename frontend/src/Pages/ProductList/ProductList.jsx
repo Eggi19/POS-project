@@ -116,12 +116,7 @@ export default function ProductList() {
     return (
         <ResponsiveContainer>
             <>
-                <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                />
-
-
+                <Toaster/>
                 <div className=" relative h-full justify-items-center ">
                     <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
                     <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
