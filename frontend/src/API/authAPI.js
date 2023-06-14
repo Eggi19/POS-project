@@ -6,5 +6,6 @@ export function login(userName, password) {
       {
          userName: userName,
          password: password
-      })
+      },
+     )
 }

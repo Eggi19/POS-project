@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { getUser } from '../../API/user';
 import { useEffect } from 'react';
+import { ResponsiveContainer } from 'recharts';
 
 export default function UserList() {
     const [dataUser, setDataUser] = useState([])
@@ -19,37 +20,39 @@ export default function UserList() {
 
             setDataUser(result.data?.data)
         } catch (error) {
-            
+
         }
     }
 
     useEffect(() => {
         getUserData()
-    },[])
+    }, [])
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Username</TableCell>
-                        <TableCell align="right">Role</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {dataUser.map((value) => (
-                        <TableRow
-                            key={value.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="value">
-                                {value.userName}
-                            </TableCell>
-                            <TableCell align="right">{value.role}</TableCell>
+        <ResponsiveContainer>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 200 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Username</TableCell>
+                            <TableCell align="right">Role</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {dataUser.map((value) => (
+                            <TableRow
+                                key={value.id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="value">
+                                    {value.userName}
+                                </TableCell>
+                                <TableCell align="right">{value.role}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </ResponsiveContainer>
     );
 }

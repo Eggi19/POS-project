@@ -7,12 +7,15 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { getAllCategory } from '../../API/categoryAPI';
 import { useEffect } from 'react';
 import { ResponsiveContainer } from 'recharts';
+import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 export default function FilterBar(props) {
     const [anchorElCat, setAnchorElCat] = React.useState(null);
     const openCat = Boolean(anchorElCat);
     const [prodCategories, setProdCategories] = React.useState("")
+    const navigate = useNavigate()
     const handleClickCat = (event) => {
         setAnchorElCat(event.currentTarget);
     };
@@ -31,6 +34,11 @@ export default function FilterBar(props) {
         setAnchorElSort(null);
         props.setSort(data, nameSort)
     };
+    const logOut = () => {
+        localStorage.removeItem('id')
+        localStorage.removeItem('role')
+        navigate('/')
+    }
 
     const getCategoryList = async () => {
         try {
@@ -49,83 +57,97 @@ export default function FilterBar(props) {
     }, [])
     return (
         <>
-            
-                <div className='md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
-                    <div className='flex gap-5 py-3'>
-                        <div>
-                            <Button
-                                id="category-button"
-                                aria-controls={openCat ? 'category-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={openCat ? 'true' : undefined}
-                                onClick={handleClickCat}
-                                variant='contained'
-                                endIcon={<KeyboardArrowDownIcon />}
-                                className='h-12'
-                            >
-                                CATEGORY
-                            </Button>
-                            <Menu
-                                className='text-xs'
-                                id="category-menu"
-                                anchorEl={anchorElCat}
-                                open={openCat}
-                                onClose={handleCloseCat}
-                                MenuListProps={{
-                                    'aria-labelledby': 'category-button',
-                                }}
-                            >
 
-                                <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>
-                                {
-                                    prodCategories.data?.data?.map((value, index) => (
-                                        <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
-                                    ))
-                                }
-                            </Menu>
-                        </div>
-                        <div>
-                            <Button
-                                id="sort-button"
-                                aria-controls={openSort ? 'sort-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={openSort ? 'true' : undefined}
-                                onClick={handleClickSort}
-                                variant='contained'
-                                endIcon={<KeyboardArrowDownIcon />}
-                                className='h-12'
-                            >
-                                SORT BY
-                            </Button>
-                            <Menu
-                                id="sort-menu"
-                                anchorEl={anchorElSort}
-                                open={openSort}
-                                onClose={() => setAnchorElSort(null)}
-                                MenuListProps={{
-                                    'aria-labelledby': 'sort-button',
-                                }}
-                            >
-                                <MenuItem onClick={() => handleCloseSort(null, 0)}>none</MenuItem>
-                                <MenuItem onClick={() => handleCloseSort("ASC", 1)}>name a to z </MenuItem>
-                                <MenuItem onClick={() => handleCloseSort("DESC", 1)}>name z to a</MenuItem>
-                                <MenuItem onClick={() => handleCloseSort("ASC", 2)}>price low to high</MenuItem>
-                                <MenuItem onClick={() => handleCloseSort("DESC", 2)}>price high to low</MenuItem>
-                            </Menu>
-                        </div>
+            <div className='md:flex relative px-3 place-items-center gap-5 justify-end bg-gray-200'>
+                <div className='flex gap-5 py-3'>
+                    <div>
+                        <Button
+                            id="category-button"
+                            aria-controls={openCat ? 'category-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openCat ? 'true' : undefined}
+                            onClick={handleClickCat}
+                            variant='contained'
+                            endIcon={<KeyboardArrowDownIcon />}
+                            className='h-12'
+                        >
+                            CATEGORY
+                        </Button>
+                        <Menu
+                            className='text-xs'
+                            id="category-menu"
+                            anchorEl={anchorElCat}
+                            open={openCat}
+                            onClose={handleCloseCat}
+                            MenuListProps={{
+                                'aria-labelledby': 'category-button',
+                            }}
+                        >
+
+                            <MenuItem onClick={() => handleCloseCat(0)}>none</MenuItem>
+                            {
+                                prodCategories.data?.data?.map((value, index) => (
+                                    <MenuItem key={index} onClick={() => handleCloseCat(value.id)}>{value.name}</MenuItem>
+                                ))
+                            }
+                        </Menu>
                     </div>
                     <div>
-                        <TextField
-                            id="outlined-basic"
-                            label="Search"
-                            variant="outlined"
-                            className=' bg-white'
-
-                            onChange={(event) => {
-                                props.setSearch(event.target.value);
-                            }} />
+                        <Button
+                            id="sort-button"
+                            aria-controls={openSort ? 'sort-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openSort ? 'true' : undefined}
+                            onClick={handleClickSort}
+                            variant='contained'
+                            endIcon={<KeyboardArrowDownIcon />}
+                            className='h-12'
+                        >
+                            SORT BY
+                        </Button>
+                        <Menu
+                            id="sort-menu"
+                            anchorEl={anchorElSort}
+                            open={openSort}
+                            onClose={() => setAnchorElSort(null)}
+                            MenuListProps={{
+                                'aria-labelledby': 'sort-button',
+                            }}
+                        >
+                            <MenuItem onClick={() => handleCloseSort(null, 0)}>none</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 1)}>name a to z </MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 1)}>name z to a</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("ASC", 2)}>price low to high</MenuItem>
+                            <MenuItem onClick={() => handleCloseSort("DESC", 2)}>price high to low</MenuItem>
+                        </Menu>
                     </div>
-                </div >
+                </div>
+                <div>
+                    <TextField
+                        id="outlined-basic"
+                        label="Search"
+                        variant="outlined"
+                        className=' bg-white'
+
+                        onChange={(event) => {
+                            props.setSearch(event.target.value);
+                        }} />
+                </div>
+                <div>
+                    {localStorage.getItem('role') === 'cashier' ?
+                        <div>
+                            <Button
+                                id="logout-button"
+                                onClick={() => logOut()}
+                                variant='text'
+                            >
+                                <LogoutIcon/>
+                            </Button>
+                        </div> :
+                        null
+                    }
+                </div>
+            </div >
         </>
     )
 }
