@@ -6,6 +6,9 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const {userName, password, confirmPassword, role} = req.body
+            if(!userName || !password|| !confirmPassword|| !role) {
+                throw{message: 'Data incomplete'}
+            }
             const findUser = await User.findOne({
                 where: {
                     userName: userName
