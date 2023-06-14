@@ -52,24 +52,31 @@ export default function SignUp() {
             const username = _username.current.value
             const password = _password.current.value
             const confirmPassword = _confirmPassword.current.value
-
-            const result = await registerUser({
-                username,
-                password,
-                confirmPassword,
-                role
-            })
-
-            _username.current.value = ''
-            _password.current.value = ''
-            _confirmPassword.current.value = ''
-            setRole('')
-
-            if (result.data.success) {
-                toast.success('Successfully Registered!')
-            } else {
-                throw { message: result.data.message }
+            if (!username || !password || !confirmPassword || !role) {
+                toast.error('All fields are required')
             }
+            else {
+                const result = await registerUser({
+                    username,
+                    password,
+                    confirmPassword,
+                    role
+                })
+
+                _username.current.value = ''
+                _password.current.value = ''
+                _confirmPassword.current.value = ''
+                setRole('')
+
+                if (result.data.success) {
+                    toast.success('Successfully Registered!')
+                } else {
+                    throw { message: result.data.message }
+                }
+            }
+
+
+
         } catch (error) {
             toast.error(error.message)
         }
@@ -77,10 +84,6 @@ export default function SignUp() {
 
     return (
         <>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-            />
             <ThemeProvider theme={defaultTheme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
@@ -174,6 +177,7 @@ export default function SignUp() {
                     <Copyright sx={{ mt: 5 }} />
                 </Container>
             </ThemeProvider>
+            <Toaster />
         </>
     );
 }

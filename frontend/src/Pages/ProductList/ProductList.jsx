@@ -15,9 +15,20 @@ import Cart from '../../Components/Cart/cart';
 import toast, { Toaster } from 'react-hot-toast';
 import { ResponsiveContainer } from 'recharts';
 import Badge from '@mui/material/Badge';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ProductList() {
+    const navigate = useNavigate()
+    const role = localStorage.getItem('role')
+    const loginCheck = () => {
+        if (!role) {
+            navigate('/')
+        }
+        else if (role === 'admin') {
+            navigate('/dashboard')
+        }
+    }
     const [sales, setSales] = useState([])
 
     //Dialog
@@ -81,7 +92,7 @@ export default function ProductList() {
             console.log('page', page)
             const response = await getAllProducts(page, category, search, sort, nameSort, pageLimit)
             // const catResponse = await getAllCategory()
-            console.log("Respnse", response)
+            // console.log("Respnse", response)
             setProducts(response)
             // setProdCategories(catResponse)
             // console.log(response?.data?.data?.page);
@@ -100,28 +111,26 @@ export default function ProductList() {
     const setCategory = (data) => {
         if (typeof (data) === "number") {
             setCategoryValue(data)
-            console.log(typeof (data))
+            // console.log(typeof (data))
         }
     }
     const setSearch = (data) => {
         setSearchValue(data)
-        console.log(data)
+        // console.log(data)
     }
 
     useEffect(() => {
-        data()
+        loginCheck()
+    }, [])
 
+    useEffect(() => {
+        data()
     }, [page, category, search, sort, nameSort])
 
     return (
         <ResponsiveContainer>
             <>
-                <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                />
-
-
+                <Toaster />
                 <div className=" relative h-full justify-items-center ">
                     <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
                     <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
