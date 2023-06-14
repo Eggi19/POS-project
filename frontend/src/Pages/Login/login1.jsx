@@ -31,11 +31,13 @@ const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const navigate = useNavigate()
-  if (localStorage.getItem('role')) {
-    if (localStorage.getItem('role') === 'admin') {
-      navigate('/dashboard')
-    } else {
-      navigate('/products')
+  const loginChek = () => {
+    if (localStorage.getItem('role')) {
+      if (localStorage.getItem('role') === 'admin') {
+        navigate('/dashboard')
+      } else {
+        navigate('/products')
+      }
     }
   }
 
@@ -67,6 +69,8 @@ export default function SignInSide() {
       }
     }
   };
+
+  React.useEffect(() => { loginChek() }, [])
 
   return (
     <ThemeProvider theme={defaultTheme}>

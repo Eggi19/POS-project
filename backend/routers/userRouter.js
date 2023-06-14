@@ -3,7 +3,7 @@ const { verifyUser, checkRole } = require('../middleware/auth')
 const express = require('express')
 const Router = express.Router()
 
-Router.post('/', verifyUser, checkRole, userController.createUser)
+Router.post('/',userController.createUser)
 Router.get('/', userController.getUserData)
 
 module.exports = Router
