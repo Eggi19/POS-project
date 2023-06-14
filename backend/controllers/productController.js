@@ -15,7 +15,7 @@ module.exports = {
             let order = undefined
             let orderType = ''
             const response = await ProductsDB.count()
-            let totalPage = Math.ceil(response / pageLimit) 
+            let totalPage = Math.ceil(response / pageLimit)
             console.log("total", totalPage);
 
             if (nameSort === '1') {
@@ -88,27 +88,36 @@ module.exports = {
                 }
             })
 
-            if (!getProducts) {
-                const result = await ProductsDB.create({
-                    name,
-                    categoryId,
-                    imageURL,
-                    price,
-                    status
-                })
+            if (name && categoryId && imageURL && price && status) {
+                if (!getProducts) {
+                    const result = await ProductsDB.create({
+                        name,
+                        categoryId,
+                        imageURL,
+                        price,
+                        status
+                    })
 
-                return res.status(200).send({
-                    success: true,
-                    message: 'add product success',
-                    data: result
-                })
-            } else {
+                    return res.status(200).send({
+                        success: true,
+                        message: 'add product success',
+                        data: result
+                    })
+                } else {
+                    return res.status(400).send({
+                        success: false,
+                        message: `${name} had been added`,
+                        data: null
+                    })
+                }
+            }else{
                 return res.status(400).send({
                     success: false,
-                    message: `${name} had been added`,
+                    message: `complete your form`,
                     data: null
                 })
             }
+
         } catch (error) {
             res.send({
                 success: false,
@@ -118,9 +127,9 @@ module.exports = {
         }
     },
 
-    updateProduct: async(req, res) => {
+    updateProduct: async (req, res) => {
         try {
-            const {productId} = req.params
+            const { productId } = req.params
             const { name, categoryId, imageURL, price, status } = req.body
 
             const findProduct = await ProductsDB.findOne({
@@ -129,7 +138,7 @@ module.exports = {
                 }
             })
 
-            if(findProduct){
+            if (findProduct) {
                 const result = await ProductsDB.update({
                     name,
                     categoryId,
@@ -147,7 +156,7 @@ module.exports = {
                     message: 'update product success',
                     data: result
                 })
-            }else{
+            } else {
                 return res.status(400).send({
                     success: false,
                     message: `category's id is not found`,
@@ -163,16 +172,16 @@ module.exports = {
         }
     },
 
-    deleteProduct: async(req, res) => {
+    deleteProduct: async (req, res) => {
         try {
-            const {productId} = req.params
+            const { productId } = req.params
             const findProduct = await ProductsDB.findOne({
                 where: {
                     id: productId
                 }
             })
 
-            if(findProduct){
+            if (findProduct) {
                 const result = await ProductsDB.destroy({
                     where: {
                         id: productId
@@ -184,14 +193,14 @@ module.exports = {
                     message: 'delete product success',
                     data: result
                 })
-            }else{
+            } else {
                 return res.status(400).send({
                     success: false,
                     message: `category's id is not found`,
                     data: null
                 })
             }
-            
+
         } catch (error) {
             res.send({
                 success: false,
@@ -201,7 +210,7 @@ module.exports = {
         }
     },
 
-    getProductsWithCategory: async(req, res) => {
+    getProductsWithCategory: async (req, res) => {
         try {
             const result = await ProductsDB.findAll({
                 include: db.Category

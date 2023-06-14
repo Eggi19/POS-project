@@ -74,12 +74,13 @@ export default function CreateProduct() {
     if (role !== 'admin') { navigate('/products') }
 
     const [productCategories, setProductCategories] = useState([])
-
+    const [currCategory, setCurrCategory] = useState('')
     const productName = useRef()
     const [categoryId, setCategoryId] = useState('')
     const imageURL = useRef()
     const price = useRef()
     const [status, setStatus] = useState('')
+    const [currStatus, setCurrStatus] = useState('')
 
     const handleSubmit = (data) => {
         setCategoryId(Number(data))
@@ -87,21 +88,33 @@ export default function CreateProduct() {
 
     const onCreateProduct = async () => {
         try {
-            let _price = Number(price.current.value.split(' ')[1].replace(',', ''))
-            const response = await createProduct({
-                name: productName.current.value,
-                categoryId: categoryId,
-                imageURL: imageURL.current.value,
-                price: _price,
-                status: status
-            })
-            if (response.data?.success) {
-                toast.success('Create New Product Success!')
-                productName.current.value = ''
-                imageURL.current.value = ''
-                price.current.value = 0
+            let _price = price.current.value? Number(price.current.value.split(' ')[1].replace(',', '')) : 0
+            let product = productName.current.value
+            let category = categoryId
+            let image = imageURL.current.value
+            let stockStatus = status
+
+            if(_price && product && category && image && stockStatus){
+                const response = await createProduct({
+                    name: product,
+                    categoryId: category,
+                    imageURL: image,
+                    price: _price,
+                    status: stockStatus
+                })
+
+                if (response.data?.success) {
+                    toast.success('Create New Product Success!')
+                    productName.current.value = ''
+                    imageURL.current.value = ''
+                    price.current.value = 0
+                    setCurrCategory('')
+                    setCurrStatus('')
+                } else {
+                    throw { message: "Create New Product Failed!" }
+                }
             } else {
-                throw { message: "Create New Product Failed!" }
+                throw { message: "Complete The Form!" }
             }
         } catch (error) {
             toast.error(error.message)
@@ -161,7 +174,7 @@ export default function CreateProduct() {
                                     select
                                     name="Category"
                                     label="Category"
-                                    defaultValue=""
+                                    defaultValue={currCategory}
                                     helperText="Please select product category"
                                 >
                                     {productCategories.map((value) => (
@@ -202,6 +215,7 @@ export default function CreateProduct() {
                                     select
                                     name="Stock Status"
                                     label="Stock Status"
+                                    defaultValue={currStatus}
                                     helperText="Please select product status"
                                 >
                                     <MenuItem value='Available' onClick={() => setStatus(true)}>
