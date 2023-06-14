@@ -33,6 +33,7 @@ export default function Chart() {
   const [startDate, setStartDate] = React.useState('')
   const [endDate, setEndDate] = React.useState('')
   const [dataArray, setDataArray] = React.useState([])
+  const [graph , setGraph] = React.useState([]) 
 
   const getData = async (startDate, endDate) => {
     try {
@@ -59,6 +60,7 @@ export default function Chart() {
         createData1(dateFormat, value.sum_total)
       )
     })
+    setGraph(graphData)
   }
   React.useEffect(() => {
     data1()
@@ -123,7 +125,7 @@ export default function Chart() {
             </div>
             <ResponsiveContainer>
               <LineChart
-                data={graphData}
+                data={graph}
                 margin={{
                   top: 16,
                   right: 16,
