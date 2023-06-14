@@ -1,5 +1,7 @@
 const db = require("./../models")
 const InvoiceDB = db.invoice
+const SaleDB = db.Sale
+const ProductDB = db.product
 const { Op, fn, Sequelize } = require("sequelize");
 
 
@@ -66,6 +68,35 @@ module.exports = {
             }
         }
 
+    },
+
+    getOrderList: async (req, res) => {
+        try {
+            const result = await InvoiceDB.findAll({
+                include: [
+                    {
+                        model: SaleDB,
+                        include: [
+                            {
+                                model: ProductDB
+                            }
+                        ]
+                    }
+                ]
+            })
+
+            res.send({
+                success: true,
+                message: "get order list success",
+                data: result
+            })
+        } catch (error) {
+            res.send({
+                success: false,
+                message: error.message,
+                data: null
+            })
+        }
     }
 
 }
