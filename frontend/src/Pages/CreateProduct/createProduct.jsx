@@ -107,7 +107,7 @@ export default function CreateProduct() {
                     toast.success('Create New Product Success!')
                     productName.current.value = ''
                     imageURL.current.value = ''
-                    price.current.value = 0
+                    price.current.value = 'Rp 0'
                     setCurrCategory('')
                     setCurrStatus('')
                 } else {
