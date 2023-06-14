@@ -28,7 +28,7 @@ export default function OrderList() {
     }
 
     const [open, setOpen] = React.useState(false);
-    const [sales,setSales] = useState([])
+    const [sales, setSales] = useState([])
     const handleClickOpen = (data) => {
         setSales(data)
         setOpen(true);
@@ -73,7 +73,14 @@ export default function OrderList() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={handleClose} sx={{
+                "& .MuiDialog-container": {
+                    "& .MuiPaper-root": {
+                        width: "100%",
+                        maxWidth: "500px",  // Set your width here
+                    },
+                },
+            }}>
                 <DialogTitle>Order Summary</DialogTitle>
                 <DialogContent>
                     <CartOrderList data={sales} func={setSales} />
