@@ -13,6 +13,9 @@ import Fab from '@mui/material/Fab';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Cart from '../../Components/Cart/cart';
 import toast, { Toaster } from 'react-hot-toast';
+import { ResponsiveContainer } from 'recharts';
+import Badge from '@mui/material/Badge';
+
 
 export default function ProductList() {
     const [sales, setSales] = useState([])
@@ -70,12 +73,13 @@ export default function ProductList() {
     const [search, setSearchValue] = useState("")
     const [sort, setSortValue] = useState(null)
     const [nameSort, setNameSort] = useState(0)
+    const pageLimit = 10
 
 
     const data = async () => {
         try {
             console.log('page', page)
-            const response = await getAllProducts(page, category, search, sort, nameSort)
+            const response = await getAllProducts(page, category, search, sort, nameSort, pageLimit)
             // const catResponse = await getAllCategory()
             console.log("Respnse", response)
             setProducts(response)
@@ -110,40 +114,46 @@ export default function ProductList() {
     }, [page, category, search, sort, nameSort])
 
     return (
-        <>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-            />
-            <div className=" relative h-full justify-items-center ">
-                <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
-                <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
-                    {products?.data?.data?.map((value, index) => {
-                        return (
-                            <div className="p-3" key={`p${index}`}>
-                                <ProductCard data={value} func={onTransaction} />
-                            </div>
-                        )
-                    })}
+        <ResponsiveContainer>
+            <>
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
+
+
+                <div className=" relative h-full justify-items-center ">
+                    <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
+                    <div className="grid grid-cols-2 md:grid-cols-4 landscape:md:grid-cols-5 p-2 justify-items-center">
+                        {products?.data?.data?.map((value, index) => {
+                            return (
+                                <div className="p-3" key={`p${index}`}>
+                                    <ProductCard data={value} func={onTransaction} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className="p-5">
+                        <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
+                    </div>
+                    <div className='sticky mr-5 bottom-12 start-full w-12'>
+                        <Badge badgeContent={sales.length} color="primary">
+                            <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
+                                <ShoppingCartIcon />
+                            </Fab>
+                        </Badge>
+                    </div>
                 </div>
-                <div className="p-5">
-                    <PaginationControlled totalPage={products?.data?.page} handlePagination={setPagination} />
-                </div>
-                <div className='sticky bottom-12 start-full w-12'>
-                    <Fab size="large" color="secondary" aria-label="edit" onClick={() => handleClickOpen()} >
-                        <ShoppingCartIcon />
-                    </Fab>
-                </div>
-            </div>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Order Summary</DialogTitle>
-                <DialogContent>
-                    <Cart data={sales} func={setSales} />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                </DialogActions>
-            </Dialog>
-        </>
+                <Dialog open={open} onClose={handleClose}>
+                    <DialogTitle>Order Summary</DialogTitle>
+                    <DialogContent>
+                        <Cart data={sales} func={setSales} />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Close</Button>
+                    </DialogActions>
+                </Dialog>
+            </>
+        </ResponsiveContainer>
     )
 }

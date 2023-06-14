@@ -18,19 +18,28 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditComponent from './EditComponent/editComponent';
 import { useState } from 'react';
-import { deleteProduct, getAllProductsWithCategory } from '../../API/productAPI';
+import { deleteProduct, getAllProducts, getAllProductsWithCategory } from '../../API/productAPI';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FilterBar from '../../Components/FilterBar/FilterBar';
+import PaginationControlled from '../../Components/Pagination/Pagination';
 
 export default function EditProduct() {
     const navigate = useNavigate()
     const role = localStorage.getItem('role')
-
-    if (role !== 'admin') { navigate('/products') }
-
+    const [category, setCategoryValue] = useState(0)
+    const [search, setSearchValue] = useState("")
+    const [sort, setSortValue] = useState(null)
+    const [nameSort, setNameSort] = useState(0)
+    const [products, setProducts] = useState()
+    const [page, setPage] = useState(1)
     const [currentDataProduct, setCurrentDataProduct] = useState([])
-    //Dialog
     const [open, setOpen] = React.useState(false);
+    const [dataProducts, setDataProducts] = useState([])
+    const pageLimit = 10
+
+    // CHECK ROLE
+    if (role !== 'admin') { navigate('/products') }
 
     const handleClickOpen = (data) => {
         setCurrentDataProduct(data)
@@ -41,12 +50,12 @@ export default function EditProduct() {
         setOpen(false);
     };
 
-    const [dataProducts, setDataProducts] = useState([])
-
     const getDataProducts = async () => {
         try {
-            const result = await getAllProductsWithCategory()
-            setDataProducts(result?.data?.data)
+            // const result = await getAllProductsWithCategory()
+            const result = await getAllProducts(page, category, search, sort, nameSort, pageLimit)
+            console.log('result', result.data)
+            setDataProducts(result?.data)
         } catch (error) {
 
         }
@@ -60,12 +69,31 @@ export default function EditProduct() {
 
         }
     }
+    const setPagination = (event, value) => {
+        setPage(value)
+        // console.log('page1', value)
+    }
+    const setSort = (data, nameSort) => {
+        setSortValue(data)
+        setNameSort(nameSort)
+    }
+    const setCategory = (data) => {
+        if (typeof (data) === "number") {
+            setCategoryValue(data)
+            console.log(typeof (data))
+        }
+    }
+    const setSearch = (data) => {
+        setSearchValue(data)
+        console.log(data)
+    }
 
     useEffect(() => {
         getDataProducts()
-    }, [])
+    }, [page, category, search, sort, nameSort])
     return (
         <>
+            <FilterBar setCategory={setCategory} setSearch={setSearch} setSort={setSort} />
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -75,11 +103,11 @@ export default function EditProduct() {
                             <TableCell align="left">Category</TableCell>
                             <TableCell align="left">Price</TableCell>
                             <TableCell align="left">Stock</TableCell>
-                            <TableCell align="left"></TableCell>
+                            <TableCell align="left">Edit</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {dataProducts?.map((value) => (
+                        {dataProducts?.data?.map((value) => (
                             <TableRow
                                 key={value.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -111,10 +139,14 @@ export default function EditProduct() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <div className="p-5">
+                {console.log(dataProducts.page, 'page prod')}
+                <PaginationControlled totalPage={dataProducts?.page} handlePagination={setPagination} />
+            </div>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Product</DialogTitle>
                 <DialogContent>
-                    <EditComponent data={currentDataProduct} getData={getDataProducts}/>
+                    <EditComponent data={currentDataProduct} getData={getDataProducts} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>

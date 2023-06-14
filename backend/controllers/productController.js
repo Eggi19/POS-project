@@ -6,16 +6,17 @@ module.exports = {
     getProduct: async (req, res) => {
         try {
 
-            const { page, category, search, sort, nameSort } = req.query
-            const limit = 10
-            const offset = (page - 1) * limit
+            const { page, category, search, sort, nameSort, limit } = req.query
+            // const limit = 10
+            const pageLimit = Number(limit)
+            const offset = (page - 1) * pageLimit
             let result
             let where = undefined
             let order = undefined
             let orderType = ''
             const response = await ProductsDB.count()
-            let totalPage = Math.ceil(response / limit)
-            console.log("total", nameSort);
+            let totalPage = Math.ceil(response / pageLimit) 
+            console.log("total", totalPage);
 
             if (nameSort === '1') {
                 orderType = 'name'
@@ -45,7 +46,8 @@ module.exports = {
                 order = [['id', 'ASC']]
             }
             result = await ProductsDB.findAll({
-                limit: limit, offset: offset,
+                include: db.Category,
+                limit: pageLimit, offset: offset,
                 where: where,
                 order: order
 
