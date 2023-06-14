@@ -34,6 +34,7 @@ import { useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import UserList from '../UserList/userList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import OrderList from '../OrderList/orderList';
 
 
 function Copyright(props) {
@@ -206,6 +207,12 @@ export default function Dashboard() {
                   <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="User List" />
+              </ListItemButton>
+              <ListItemButton onClick={() => setContent(<OrderList />)}>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order List" />
               </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />
